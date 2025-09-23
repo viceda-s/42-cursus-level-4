@@ -27,7 +27,7 @@ Welcome to my repository showcasing my progress in **Milestone 4** at 42 School.
 
 1. **CPP00 – Introduction to C++**  
     - **Objective:** Introduction to C++, including the use of classes, objects, and basic operators.  
-    - **Status:** 🟠 In progress.
+    - **Score: 100/100** ✅
 
 2. **CPP01 – Classes and Objects**  
     - **Objective:** Basic concepts of classes, objects, member functions, constructors, and destructors.  

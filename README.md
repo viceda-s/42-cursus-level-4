@@ -7,7 +7,7 @@ Welcome to my repository showcasing my progress in **Milestone 4** at 42 School.
 | Project                         | Final Score    | Notable Features                           |
 | :--                              | :--:           | :--                                         |
 | CPP Modules 00-04                | 🟠 In progress | C++ Modules (Fundamentals, Classes, Inheritance, Polymorphism) |
-| miniRT                           | 🟠 In progress | 3D Game, Graphics, Interaction with Environment |
+| miniRT                           | 🟠 In progress | Ray tracing, Vector manipulation, Realistic physical lighting |
 | NetPractice                      | 🟠 In progress | Practical challenges with networks and sockets |
 
 ## 🔎 Project Details

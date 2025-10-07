@@ -7,7 +7,7 @@ Welcome to my repository showcasing my progress in **Milestone 4** at 42 School.
 | Project                         | Final Score    | Notable Features                           |
 | :--                              | :--:           | :--                                         |
 | CPP Modules 00-04                | 🟠 In progress | C++ Modules (Fundamentals, Classes, Inheritance, Polymorphism) |
-| cub3D                            | 🟠 In progress | 3D Game, Graphics, Interaction with Environment |
+| miniRT                           | 🟠 In progress | 3D Game, Graphics, Interaction with Environment |
 | NetPractice                      | 🟠 In progress | Practical challenges with networks and sockets |
 
 ## 🔎 Project Details
@@ -91,7 +91,7 @@ Each project is in its own directory, containing the full source code, as well a
 │ ├── CPP02/
 │ ├── CPP03/
 │ └── CPP04/
-├── cub3D/
+├── miniRT/
 └── netpractice/
 ```
 

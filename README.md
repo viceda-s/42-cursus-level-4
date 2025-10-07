@@ -47,16 +47,16 @@ Welcome to my repository showcasing my progress in **Milestone 4** at 42 School.
 
 ---
 
-### 🎮 cub3D – In progress 🟠
+### 🖼️ miniRT – In progress 🟠
 
-- **Objective:** Create a simple 3D game inspired by classic first-person shooter (FPS) games, using 2D graphics to simulate a 3D environment.
+- **Objective:** Develop a simple 3D rendering engine using ray tracing to generate realistic scenes with support for lights, shadows, and basic reflections.
 - **Current Status:**  
-    - Development is ongoing, with the basic graphics engine (raycasting) already working. Currently, I am working on player movement, environment interaction, and map design.
+    - Development is ongoing, with basic object rendering (spheres, planes, and cones) already functional. Currently, I am focusing on implementing more advanced lighting effects, shadows, and performance optimizations.
 - **Challenges Faced:**  
-    - The primary difficulty has been the calculation and rendering of 3D graphics using raycasting, as well as managing real-time interactions.
-    - Working with graphics and real-time physics of movement, while ensuring performance and proper rendering of objects in the scene.
+    - The main difficulty has been optimizing the rendering of complex scenes, particularly in how lights interact with objects. Calculating shadows, reflections, and refractions has proven especially challenging in terms of both performance and accuracy.
+    - Maintaining performance with the implementation of multiple rays for simulating realistic lighting in real-time without sacrificing rendering quality.
 - **Skills Developed:**  
-    - Raycasting, basic 3D graphics, movement physics and interaction with the environment, handling images and textures in real-time.
+    - Ray tracing, vector manipulation, 3D math, realistic physical lighting, implementing reflections and refractions, as well as real-time rendering optimizations.
 
 ---
 

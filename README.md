@@ -8,7 +8,7 @@ Welcome to my repository showcasing my progress in **Milestone 4** at 42 School.
 | :--                              | :--:           | :--                                         |
 | CPP Modules 00-04                | 🟠 In progress | C++ Modules (Fundamentals, Classes, Inheritance, Polymorphism) |
 | miniRT                           | 🟠 In progress | Ray tracing, Vector manipulation, Realistic physical lighting |
-| NetPractice                      | 🟠 In progress | Practical challenges with networks and sockets |
+| NetPractice                      | ✅ 100/100 | Practical challenges with networks and sockets |
 
 ## 🔎 Project Details
 
@@ -31,7 +31,7 @@ Welcome to my repository showcasing my progress in **Milestone 4** at 42 School.
 
 2. **CPP01 – Classes and Objects**  
     - **Objective:** Basic concepts of classes, objects, member functions, constructors, and destructors.  
-    - **Status:** 🟠 In progress.
+    - **Score: 100/100** ✅
 
 3. **CPP02 – Encapsulation and Inheritance**  
     - **Objective:** Apply concepts of encapsulation and inheritance, including base and derived classes.  
@@ -51,25 +51,23 @@ Welcome to my repository showcasing my progress in **Milestone 4** at 42 School.
 
 - **Objective:** Develop a simple 3D rendering engine using ray tracing to generate realistic scenes with support for lights, shadows, and basic reflections.
 - **Current Status:**  
-    - Development is ongoing, with basic object rendering (spheres, planes, and cones) already functional. Currently, I am focusing on implementing more advanced lighting effects, shadows, and performance optimizations.
-- **Challenges Faced:**  
+    - Development is in the early stages. Currently, I am focusing on implementing basic objects  (spheres, planes, and cones).
+- **Challenges Faced:**
     - The main difficulty has been optimizing the rendering of complex scenes, particularly in how lights interact with objects. Calculating shadows, reflections, and refractions has proven especially challenging in terms of both performance and accuracy.
-    - Maintaining performance with the implementation of multiple rays for simulating realistic lighting in real-time without sacrificing rendering quality.
+    - Maintaining performance with the implementation of multiple rays to simulate realistic lighting in real-time without sacrificing rendering quality.
 - **Skills Developed:**  
     - Ray tracing, vector manipulation, 3D math, realistic physical lighting, implementing reflections and refractions, as well as real-time rendering optimizations.
 
 ---
+### 🌐 NetPractice – 100/100 ✅
 
-### 🖨️ NetPractice – In progress 🟠
-
-- **Objective:** Solve practical challenges related to networks and sockets, learning to handle networking in C.
-- **Current Status:**  
-    - The module is in progress, with initial challenges completed, such as creating servers and clients using sockets. I am now working on more complex problems related to network protocols and synchronization between components.
-- **Challenges Faced:**  
-    - Data communication between the server and client using TCP/UDP sockets has required extra attention to ensure data integrity and connection robustness.
-    - Challenges with buffers and data handling in distributed networks.
-- **Skills Developed:**  
-    - Networking and sockets in C, client-server communication, TCP/UDP protocols, buffer handling, synchronization between processes.
+- **Objective:** Explore the fundamentals of computer networking by configuring and analyzing simulated networks, gaining a deep understanding of TCP/IP addressing and device communication.
+- **Challenges Faced:**
+    - Configuring multi-device networks (hosts, switches, routers) to ensure complete connectivity.  
+    - Identifying and fixing configuration errors in simulated network topologies.  
+    - Developing a solid understanding of IP addressing, subnetting, and routing logic.  
+- **Skills Developed:**
+    - Networking principles, TCP/IP protocols, diagnostic and troubleshooting skills, logical reasoning, and problem-solving.  
 
 ---
 

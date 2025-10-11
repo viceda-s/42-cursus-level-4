@@ -28,19 +28,15 @@ Welcome to my repository showcasing my progress in **Milestone 4** at 42 School.
 1. **CPP00 – Introduction to C++**  
     - **Objective:** Introduction to C++, including the use of classes, objects, and basic operators.  
     - **Score: 100/100** ✅
-
 2. **CPP01 – Classes and Objects**  
     - **Objective:** Basic concepts of classes, objects, member functions, constructors, and destructors.  
     - **Score: 100/100** ✅
-
 3. **CPP02 – Encapsulation and Inheritance**  
     - **Objective:** Apply concepts of encapsulation and inheritance, including base and derived classes.  
     - **Status:** 🟠 In progress.
-
 4. **CPP03 – Polymorphism**  
     - **Objective:** Implement polymorphism, operator overloading, and virtual functions.  
     - **Status:** 🟠 In progress.
-
 5. **CPP04 – Exception Handling and Templates**  
     - **Objective:** Learn how to use exceptions and templates to make code more generic and robust.  
     - **Status:** 🟠 In progress.

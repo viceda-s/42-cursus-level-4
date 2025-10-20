@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: viceda-s <viceda-s@student.42luxembourg    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/10 17:36:52 by rbaldin           #+#    #+#             */
+/*   Updated: 2025/10/20 09:29:10 by viceda-s         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
 int	init_minirt_basic(t_minirt *data)
@@ -5,15 +17,15 @@ int	init_minirt_basic(t_minirt *data)
 	data->mlx = mlx_init();
 	if (!data->mlx)
 		return (0);
-		
+
 	data->win = mlx_new_window(data->mlx, 800, 600, "miniRT");
 	if (!data->win)
 		return (0);
-		
+
 	data->img = mlx_new_image(data->mlx, 800, 600);
 	if (!data->img)
 		return (0);
-		
+
 	data->addr = mlx_get_data_addr(data->img, &data->bits_per_pixel,
 									&data->line_length, &data->endian);
 	data->scene = NULL;
@@ -55,25 +67,26 @@ void	cleanup_scene(void *scene)
 		free(scene);
 }
 
+
 int	main(int argc, char **argv)
 {
 	t_minirt	data;
+	t_scene		*scene;
 
-	(void)argc;
-	(void)argv;
-	
-	if (!init_minirt_basic(&data))
+	if (argc != 2)
 	{
-		write(2, "Erro ao inicializar MinilibX\n", 29);
+		printf("Usage: ./miniRT <file.rt>\n");
 		return (1);
 	}
+	scene = parse_scene(argv[1]);
+	if (!scene)
+	{
+		printf("Error: Failed to parse scene file\n");
+		return (1);
+	}
+	init_minirt_basic(&data);
 	
-	render_test_scene(&data);
-	init_event(&data);
-	
-	write(1, "=== miniRT Teste ===\n", 21);
-	write(1, "ESC ou Q - Sair\n", 16);
-	write(1, "X (fechar) - Sair\n", 18);
+	render_scene(scene, &data);
 	
 	mlx_loop(data.mlx);
 	return (0);

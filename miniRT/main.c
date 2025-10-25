@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: viceda-s <viceda-s@student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/10 17:36:52 by rbaldin           #+#    #+#             */
-/*   Updated: 2025/10/20 09:29:10 by viceda-s         ###   ########.fr       */
+/*   Created: 2025/10/20 14:06:27 by viceda-s          #+#    #+#             */
+/*   Updated: 2025/10/24 19:21:03 by viceda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,16 +78,29 @@ int	main(int argc, char **argv)
 		printf("Usage: ./miniRT <file.rt>\n");
 		return (1);
 	}
-	scene = parse_scene(argv[1]);
+	printf("Loading scene...\n");
+	scene = load_scene(argv[1]);
 	if (!scene)
 	{
-		printf("Error: Failed to parse scene file\n");
+		printf("Error\nFailed to parse scene file\n");
 		return (1);
 	}
-	init_minirt_basic(&data);
+	printf("Scene loaded successfully!\n");
+	if (!init_minirt_basic(&data))
+	{
+		printf("Error\nFailed to initialize miniRT\n");
+		cleanup_scene(scene);
+		return (1);
+	}
+	printf("MiniRT initialized!\n");
+	data.scene = scene;
 	
+	init_event(&data);
+	printf("Rendering scene...\n");
 	render_scene(scene, &data);
-	
+	printf("Putting image to window...\n");
+	mlx_put_image_to_window(data.mlx, data.win, data.img, 0, 0);
+	printf("Starting MLX loop...\n");
 	mlx_loop(data.mlx);
 	return (0);
 }

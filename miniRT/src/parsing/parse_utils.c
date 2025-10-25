@@ -37,17 +37,15 @@ float	ft_atof_dp(char **str)
 {
     float	result;
     float	sign;
-    int		i;
 
     result = 0.0;
     sign = 1.0;
-    while (**str == ' ' || (**str >= 9 && **str <= 13))
-        (*str)++;
+    skipping_emptiness(str);
     if (**str == '-' || **str == '+')
     {
         if (**str == '-')
             sign = -1.0;
-        i++;
+        (*str)++;
     }
     return (getting_float(str, result) * sign);
 }
@@ -59,8 +57,7 @@ int	ft_atoi_dp(char **str)
 
     result = 0;
     sign = 1;
-    while (**str == ' ' || (**str >= 9 && **str <= 13))
-        (*str)++;
+    skipping_emptiness(str);
     if (**str == '-' || **str == '+')
     {
         if (**str == '-')

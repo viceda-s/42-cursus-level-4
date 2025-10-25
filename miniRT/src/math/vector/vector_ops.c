@@ -6,7 +6,7 @@
 /*   By: viceda-s <viceda-s@student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 12:43:16 by viceda-s          #+#    #+#             */
-/*   Updated: 2025/10/20 07:45:20 by viceda-s         ###   ########.fr       */
+/*   Updated: 2025/10/21 09:31:29 by viceda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_vector	vector_create(float x, float y, float z) // Create a vector from 3 floa
 	return (vec);
 }
 
-t_vector	vector_add(t_vector a, t_vector b) // Addition of the coordinates
+t_vector		vector_add(t_vector a, t_vector b) // Addition of the coordinates
 {
 	t_vector	res;
 
@@ -42,7 +42,7 @@ t_vector	vector_sub(t_vector a, t_vector b) // Subtraction of the coordinates
 	return (res);
 }
 
-t_vector	vector_scale(t_vector v, double s) // Multiplies each component of vector v by scalar s, returning a scaled vector
+t_vector	vector_scale(t_vector v, float s) // Multiplies each component of vector v by scalar s, returning a scaled vector
 {
 	t_vector	res;
 

@@ -6,7 +6,7 @@
 /*   By: viceda-s <viceda-s@student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/18 18:07:56 by viceda-s          #+#    #+#             */
-/*   Updated: 2025/10/20 08:08:52 by viceda-s         ###   ########.fr       */
+/*   Updated: 2025/10/21 09:35:39 by viceda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ t_vector	ray_at(t_ray ray, float t)
  * @param viewport Viewport dimensions
  * @return Ray from camera through the pixel
  */
+/*
+// OLD buggy code - direção do raio estava incorreta
 t_ray	camera_ray(t_camera camera, int x, int y, t_viewport viewport)
 {
     t_vector	pixel_world;
@@ -72,7 +74,41 @@ t_ray	camera_ray(t_camera camera, int x, int y, t_viewport viewport)
     pixel_world = vector_add(pixel_world, camera.forward);
 
     // Calculate ray direction from camera to pixel
-    ray_direction = vector_subtract(pixel_world, camera.position);
+    ray_direction = vector_sub(pixel_world, camera.position);
+    ray_direction =     vector_normalize(ray_direction);
+
+    return (create_ray(camera.position, ray_direction));
+}
+*/
+
+t_ray	camera_ray(t_camera camera, int x, int y, t_viewport viewport)
+{
+    t_vector	ray_direction;
+    float		u;
+    float		v;
+    float		theta;
+    float		h;
+    float		viewport_height;
+    float		viewport_width;
+
+    // Convert pixel coordinates to normalized device coordinates (0 to 1)
+    u = (float)x / (float)(viewport.width - 1);
+    v = (float)y / (float)(viewport.height - 1);
+
+    // Calculate viewport dimensions based on FOV
+    theta = camera.fov * acos(-1.0f) / 180.0f;  // Convert to radians
+    h = tanf(theta / 2.0f);
+    viewport_height = 2.0f * h;
+    viewport_width = viewport.aspect_ratio * viewport_height;
+
+    // Calculate ray direction
+    // Start at lower-left corner and move right (u) and up (v)
+    ray_direction = camera.forward;  // Start with forward direction
+    ray_direction = vector_add(ray_direction, 
+        vector_scale(camera.right, (u - 0.5f) * viewport_width));
+    ray_direction = vector_add(ray_direction, 
+        vector_scale(camera.up, (0.5f - v) * viewport_height));
+    
     ray_direction = vector_normalize(ray_direction);
 
     return (create_ray(camera.position, ray_direction));

@@ -6,138 +6,124 @@
 #    By: viceda-s <viceda-s@student.42luxembourg    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/13 12:34:14 by viceda-s          #+#    #+#              #
-#    Updated: 2025/10/18 20:10:34 by viceda-s         ###   ########.fr        #
+#    Updated: 2025/10/21 12:53:35 by viceda-s         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-# ═══════════════════════════════════════════════════════════════════════════ #
-#                              PROJECT CONFIG                                  #
-# ═══════════════════════════════════════════════════════════════════════════ #
-
 NAME = miniRT
 
-CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g
-INCLUDES = -I./inc -I./lib/minilibx-linux -I./lib/libft/include
-
-# ═══════════════════════════════════════════════════════════════════════════ #
-#                              DIRECTORIES                                     #
-# ═══════════════════════════════════════════════════════════════════════════ #
-
+# Directories
 SRC_DIR = src
+INC_DIR = inc
+LIB_DIR = lib
 OBJ_DIR = obj
 
-# Library paths
-MLX_PATH = lib/minilibx-linux/
-LIBFT_PATH = lib/libft/
+# Libraries
+LIBFT_DIR = $(LIB_DIR)/libft
+LIBFT = $(LIBFT_DIR)/libft.a
+MLX_DIR = $(LIB_DIR)/minilibx-linux
+MLX = $(MLX_DIR)/libmlx.a
 
-# ═══════════════════════════════════════════════════════════════════════════ #
-#                              LIBRARIES                                       #
-# ═══════════════════════════════════════════════════════════════════════════ #
-
-MLX_LIB = $(MLX_PATH)libmlx.a
-MLX_FLAGS = -L$(MLX_PATH) -lmlx -lXext -lX11 -lm
-
-LIBFT_LIB = $(LIBFT_PATH)libft.a
-
-# ═══════════════════════════════════════════════════════════════════════════ #
-#                              SOURCE FILES (ONLY EXISTING FILES)             #
-# ═══════════════════════════════════════════════════════════════════════════ #
-
-# Main file (root directory)
-MAIN_SRCS = main.c
-
-# Existing source files in src/
-SRC_SRCS = parsing/load_scene.c \
-           parsing/parsing.c \
-           parsing/parse_utils.c \
-           utils/xyz_extraction.c \
-           objects/sphere.c \
-           objects/object.c \
-           math/ray/ray_ops.c
-
-# Add vector files if they exist
-# math/vector/vector_ops.c \
-# math/vector/vector_geo.c \
-
-# Combine all sources
-SRCS = $(MAIN_SRCS) $(addprefix $(SRC_DIR)/, $(SRC_SRCS))
+# Source files
+SRCS = main.c \
+       $(SRC_DIR)/core/event.c \
+       $(SRC_DIR)/core/camera_control.c \
+       $(SRC_DIR)/parsing/parsing.c \
+       $(SRC_DIR)/parsing/parse_utils.c \
+       $(SRC_DIR)/parsing/load_scene.c \
+       $(SRC_DIR)/parsing/xyz_extraction.c \
+       $(SRC_DIR)/objects/object.c \
+       $(SRC_DIR)/objects/sphere.c \
+       $(SRC_DIR)/objects/cylinder.c \
+       $(SRC_DIR)/objects/plane.c \
+       $(SRC_DIR)/math/vector/vector_ops.c \
+       $(SRC_DIR)/math/vector/vector_geo.c \
+       $(SRC_DIR)/math/ray/ray_ops.c \
+       $(SRC_DIR)/math/render/render_scene.c \
+       $(SRC_DIR)/math/render/render_utils.c \
+       $(SRC_DIR)/math/intersect/intersect.c \
+       $(SRC_DIR)/math/intersect/intersect_utils.c
 
 # Object files
 OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
 
-# ═══════════════════════════════════════════════════════════════════════════ #
-#                              COLORS                                          #
-# ═══════════════════════════════════════════════════════════════════════════ #
+# Compiler and flags
+CC = cc
+CFLAGS = -Wall -Wextra -Werror -g3 -fPIC
+INCLUDES = -I$(INC_DIR) -I$(LIBFT_DIR)/include -I$(MLX_DIR)
+LIBS = -L$(LIBFT_DIR) -lft -L$(MLX_DIR) -lmlx -lX11 -lXext -lm
 
+# Colors for output
 GREEN = \033[0;32m
 RED = \033[0;31m
-BLUE = \033[0;34m
 YELLOW = \033[0;33m
-NC = \033[0m
+NC = \033[0m # No Color
 
-# ═══════════════════════════════════════════════════════════════════════════ #
-#                              RULES                                           #
-# ═══════════════════════════════════════════════════════════════════════════ #
+# Rules
+all: $(NAME)
 
-all: $(MLX_LIB) $(LIBFT_LIB) $(NAME)
+$(NAME): $(LIBFT) $(MLX) $(OBJS)
+	@echo "$(YELLOW)Linking $(NAME)...$(NC)"
+	@$(CC) $(OBJS) $(LIBS) -o $(NAME)
+	@echo "$(GREEN)✅ $(NAME) compiled successfully!$(NC)"
 
-$(NAME): $(OBJS) $(MLX_LIB) $(LIBFT_LIB)
-	@echo "$(BLUE)Linking $(NAME)...$(NC)"
-	@$(CC) $(OBJS) $(MLX_LIB) $(LIBFT_LIB) $(MLX_FLAGS) -o $(NAME)
-	@echo "$(GREEN)✓ $(NAME) compiled successfully!$(NC)"
+# Create object directory structure
+$(OBJ_DIR):
+	@mkdir -p $(OBJ_DIR)
+	@mkdir -p $(OBJ_DIR)/$(SRC_DIR)/core
+	@mkdir -p $(OBJ_DIR)/$(SRC_DIR)/parsing
+	@mkdir -p $(OBJ_DIR)/$(SRC_DIR)/objects
+	@mkdir -p $(OBJ_DIR)/$(SRC_DIR)/math/vector
+	@mkdir -p $(OBJ_DIR)/$(SRC_DIR)/math/ray
+	@mkdir -p $(OBJ_DIR)/$(SRC_DIR)/math/render
+	@mkdir -p $(OBJ_DIR)/$(SRC_DIR)/math/intersect
 
 # Compile object files
-$(OBJ_DIR)/%.o: %.c
-	@mkdir -p $(dir $@)
+$(OBJ_DIR)/%.o: %.c | $(OBJ_DIR)
 	@echo "$(YELLOW)Compiling $<...$(NC)"
 	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
-# Library rules
-$(MLX_LIB):
-	@echo "$(BLUE)Building MiniLibX...$(NC)"
-	@make -C $(MLX_PATH) 2>/dev/null || (echo "$(RED)Error building MiniLibX$(NC)" && exit 1)
+# Build libft
+$(LIBFT):
+	@echo "$(YELLOW)Building libft...$(NC)"
+	@make -C $(LIBFT_DIR)
 
-$(LIBFT_LIB):
-	@echo "$(BLUE)Building libft...$(NC)"
-	@make -C $(LIBFT_PATH) 2>/dev/null || (echo "$(RED)Error building libft$(NC)" && exit 1)
+# Build MLX
+$(MLX):
+	@echo "$(YELLOW)Building MLX...$(NC)"
+	@make -C $(MLX_DIR)
 
-# ═══════════════════════════════════════════════════════════════════════════ #
-#                              CLEANING                                        #
-# ═══════════════════════════════════════════════════════════════════════════ #
-
+# Clean object files
 clean:
 	@echo "$(RED)Cleaning object files...$(NC)"
 	@rm -rf $(OBJ_DIR)
-	@make -C $(MLX_PATH) clean 2>/dev/null || true
-	@make -C $(LIBFT_PATH) clean 2>/dev/null || true
+	@make -C $(LIBFT_DIR) clean
+	@make -C $(MLX_DIR) clean
 
+# Clean everything
 fclean: clean
-	@echo "$(RED)Removing $(NAME)...$(NC)"
+	@echo "$(RED)Cleaning $(NAME)...$(NC)"
 	@rm -f $(NAME)
-	@make -C $(LIBFT_PATH) fclean 2>/dev/null || true
+	@make -C $(LIBFT_DIR) fclean
 
+# Rebuild everything
 re: fclean all
 
-# ═══════════════════════════════════════════════════════════════════════════ #
-#                              DEBUG & UTILITIES                               #
-# ═══════════════════════════════════════════════════════════════════════════ #
+# Bonus (not implemented yet)
+bonus: all
 
+# Test with a scene file
+test: $(NAME)
+	@echo "$(GREEN)Testing with scenes/test.rt...$(NC)"
+	@./$(NAME) scenes/test.rt
+
+# Debug version
 debug: CFLAGS += -fsanitize=address -fsanitize=undefined
 debug: $(NAME)
 
-show-files:
-	@echo "$(BLUE)Source files:$(NC)"
-	@echo $(SRCS) | tr ' ' '\n'
+# Check for norm compliance
+norm:
+	@echo "$(YELLOW)Checking norm compliance...$(NC)"
+	@norminette $(SRC_DIR) $(INC_DIR)
 
-check-files:
-	@echo "$(BLUE)Checking if source files exist:$(NC)"
-	@for file in $(SRCS); do \
-		if [ -f $$file ]; then \
-			echo "$(GREEN)✓ $$file$(NC)"; \
-		else \
-			echo "$(RED)✗ $$file$(NC)"; \
-		fi; \
-	done
-
-.PHONY: all clean fclean re debug check-files show-files
+.PHONY: all clean fclean re test debug norm

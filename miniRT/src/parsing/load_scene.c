@@ -18,15 +18,12 @@ spaces.
 size_t lines_counting(char *filename)
 {
     int fd;
-    size_t lines;
+    ssize_t lines;
     char *line;
 
     fd = open(filename, O_RDONLY);
     if (fd < 0)
-    {
-        close(fd);
         return (-1);
-    }
     lines = 0;
     while (1)
     {
@@ -40,83 +37,86 @@ size_t lines_counting(char *filename)
     return (lines);
 }
 
-t_scene    *parsing_scene(size_t *lines, char *filename)
+static  t_scene *error_case(t_scene *scene_error, int fd_error, char *l_error)
+{
+    close(fd_error);
+    free(l_error);
+    free(scene_error);
+    return (NULL);
+}
+
+static t_scene  *processing_lines(ssize_t *lines_count, t_scene *scn, int *fdesc)
+{
+    char *lin;
+
+    while (*lines_count > 0)
+    {
+        lin = get_next_line(*fdesc);
+        if (!lin)
+            break;
+        (*lines_count)--;
+        
+        if (*lin == '\n' || *lin == '\0')
+        {
+            free(lin);
+            continue;
+        }
+        
+        if (*lin == 'A')
+        {
+            if (parsing_ambient(scn, lin))
+                return (error_case(scn, *fdesc, lin));
+            free(lin);
+        }
+        else if (*lin == 'C')
+        {
+            if (parsing_camera(scn, lin))
+                return (error_case(scn, *fdesc, lin));
+            free(lin);
+        }
+        else if (*lin == 'L')
+        {
+            if (parsing_light(scn, lin))
+                return (error_case(scn, *fdesc, lin));
+            free(lin);
+        }
+        else
+        {
+            if (parsing_objects(scn, lin))
+                return (error_case(scn, *fdesc, lin));
+            free(lin);
+        }
+    }
+    close(*fdesc);
+    return (scn);
+}
+
+t_scene    *creating_scene(ssize_t *lines, char *filename)
 {
     t_scene *scene;
-    char *line;
     int fd;
 
     fd = open(filename, O_RDONLY);
     if (fd < 0)
+        return (NULL);
+    scene = malloc(sizeof(t_scene));
+    if (!scene)
     {
         close(fd);
         return (NULL);
     }
-    scene = malloc(sizeof(t_scene)); // Allocate a single scene structure
-    if (!scene)
-        return (NULL);
-    // Inside t_scene, allocate arrays for objects/lights based on parsed counts
-    while (*lines > 0)
-    {
-        line = get_next_line(fd);
-        if (!line)
-            break;
-        if (*line == 'A')
-        {
-            if (parsing_ambient(scene, line))
-            {
-                close(fd);
-                free(line);
-                free(scene);
-                return (NULL);
-            }
-            (*lines)--;
-        }
-        if (*line == 'C')
-        {
-            if (parsing_camera(scene, line))
-            {
-                close(fd);
-                free(line);
-                free(scene);
-                return (NULL);
-            }
-            (*lines)--;
-        }
-        if (*line == 'L')
-        {
-            if (parsing_light(scene, line))
-            {
-                close(fd);
-                free(line);
-                free(scene);
-                return (NULL);
-            }
-            (*lines)--;
-        }
-        else
-        {
-            if (parsing_objects(scene, line))
-            {
-                close(fd);
-                free(line);
-                free(scene);
-                return (NULL);
-            }
-        }
-
-    }
-    return (scene);
+    scene->objects_list = NULL;
+    return (processing_lines(lines, scene, &fd));
 }
 t_scene	*load_scene(char *filename)
 {
-    size_t lines;
+    ssize_t lines;
     t_scene *scene;
 
     lines = lines_counting(filename);
-    if (lines == (size_t)-1) // similar to < 0
+    if (lines < 0)
         return (NULL);
-    scene = parsing_scene(&lines, filename);
+    scene = creating_scene(&lines, filename);
     if (!scene)
         return (NULL);
     return (scene);

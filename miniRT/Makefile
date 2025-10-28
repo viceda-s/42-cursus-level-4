@@ -6,7 +6,7 @@
 #    By: viceda-s <viceda-s@student.42luxembourg    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/13 12:34:14 by viceda-s          #+#    #+#              #
-#    Updated: 2025/10/21 12:53:35 by viceda-s         ###   ########.fr        #
+#    Updated: 2025/10/28 08:28:39 by viceda-s         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,8 +25,9 @@ MLX_DIR = $(LIB_DIR)/minilibx-linux
 MLX = $(MLX_DIR)/libmlx.a
 
 # Source files
-SRCS = main.c \
+SRCS = $(SRC_DIR)/main.c \
        $(SRC_DIR)/core/event.c \
+       $(SRC_DIR)/core/keys.c \
        $(SRC_DIR)/core/camera_control.c \
        $(SRC_DIR)/parsing/parsing.c \
        $(SRC_DIR)/parsing/parse_utils.c \
@@ -42,6 +43,7 @@ SRCS = main.c \
        $(SRC_DIR)/math/render/render_scene.c \
        $(SRC_DIR)/math/render/render_utils.c \
        $(SRC_DIR)/math/intersect/intersect.c \
+       $(SRC_DIR)/math/intersect/intersect_check.c \
        $(SRC_DIR)/math/intersect/intersect_utils.c
 
 # Object files
@@ -112,18 +114,4 @@ re: fclean all
 # Bonus (not implemented yet)
 bonus: all
 
-# Test with a scene file
-test: $(NAME)
-	@echo "$(GREEN)Testing with scenes/test.rt...$(NC)"
-	@./$(NAME) scenes/test.rt
-
-# Debug version
-debug: CFLAGS += -fsanitize=address -fsanitize=undefined
-debug: $(NAME)
-
-# Check for norm compliance
-norm:
-	@echo "$(YELLOW)Checking norm compliance...$(NC)"
-	@norminette $(SRC_DIR) $(INC_DIR)
-
-.PHONY: all clean fclean re test debug norm
+.PHONY: all clean fclean re bonus

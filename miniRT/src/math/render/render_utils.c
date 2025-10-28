@@ -6,208 +6,130 @@
 /*   By: viceda-s <viceda-s@student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 08:21:32 by viceda-s          #+#    #+#             */
-/*   Updated: 2025/10/21 09:32:13 by viceda-s         ###   ########.fr       */
+/*   Updated: 2025/10/27 19:10:23 by viceda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <time.h>
-
 #include "minirt.h"
-#include "../../../inc/minirt.h"
 
-/*
-// OLD code without debug
-static t_gd getting_object_color(void *hit_o, t_object_type hit_t, t_gd co)
+/**
+ * @brief Retrieves the material color from an object based on its type.
+ * 
+ * Extracts the RGB color information from the object's data structure.
+ * Different object types store their color in different fields.
+ * 
+ * @param object_data Pointer to the object's data structure.
+ * @param type The type of the object (SPHERE, PLANE, or CYLINDER).
+ * @return The material color as a t_gd struct, or a default black color if
+ *         the type is unknown.
+ */
+static t_gd	getting_material_color(void *object_data, t_object_type type)
 {
-    t_sp    *sphere;
-    t_gd    *plane;
-    t_cy    *cylinder;
-
-    if (hit_t == SPHERE)
-    {
-        sphere = (t_sp *)hit_o;
-        co.r = sphere->coord_colours.r;
-        co.g = sphere->coord_colours.g;
-        co.b = sphere->coord_colours.b;
-    }
-    else if (hit_t == PLANE)
-    {
-        plane = (t_gd *)hit_o;
-        co.r = plane->r;
-        co.g = plane->g;
-        co.b = plane->b;
-    }
-    else if (hit_t == CYLINDER)
-    {
-        cylinder = (t_cy *)hit_o;
-        co.r = cylinder->data.r;
-        co.g = cylinder->data.g;
-        co.b = cylinder->data.b;
-    }
-    return (co);
-}
-*/
-
-static t_gd getting_object_color(void *hit_o, t_object_type hit_t, t_gd co)
-{
-    t_sp    *sphere;
-    t_gd    *plane;
-    t_cy    *cylinder;
-
-    if (hit_t == SPHERE)
-    {
-        sphere = (t_sp *)hit_o;
-        co.r = sphere->coord_colours.r;
-        co.g = sphere->coord_colours.g;
-        co.b = sphere->coord_colours.b;
-    }
-    else if (hit_t == PLANE)
-    {
-        plane = (t_gd *)hit_o;
-        co.r = plane->r;
-        co.g = plane->g;
-        co.b = plane->b;
-    }
-    else if (hit_t == CYLINDER)
-    {
-        cylinder = (t_cy *)hit_o;
-        co.r = cylinder->data.r;
-        co.g = cylinder->data.g;
-        co.b = cylinder->data.b;
-    }
-    return (co);
+	if (type == SPHERE)
+		return (((t_sp *)object_data)->coord_colours);
+	else if (type == PLANE)
+		return (*((t_gd *)object_data));
+	else if (type == CYLINDER)
+		return (((t_cy *)object_data)->data);
+	return ((t_gd){0, 0, 0, {0, 0, 0}, {0, 0, 0}});
 }
 
-static t_vector getting_normal_for_object(void *ho, t_object_type ht, t_vector hp)
+/**
+ * @brief Calculates the surface normal at a point on a sphere.
+ * 
+ * The normal at any point on a sphere is the normalized vector from the
+ * sphere's center to that point.
+ * 
+ * @param object_data Pointer to the sphere object data.
+ * @param hit_point The point on the sphere's surface
+ * where intersection occurred.
+ * @return The normalized surface normal vector at the hit point.
+ */
+static t_vector	get_sphere_normal(void *object_data, t_vector hit_point)
 {
-    t_vector	normal;
-    t_sp    *sphere;
-    t_gd    *plane;
-    t_cy    *cylinder;
+	t_sp	*sphere;
 
-
-    if (SPHERE == ht)
-    {
-        sphere = (t_sp *)ho;
-        sphere->coord_colours.nov = vector_normalize(vector_sub(hp, sphere->coord_colours.v));
-        normal = sphere->coord_colours.nov;
-    }
-    else if (PLANE == ht)
-    {
-        plane = (t_gd *)ho;
-        normal = plane->nov;
-    }
-    else
-    {
-        cylinder  = (t_cy *)ho;
-        normal = cylinder->data.nov;
-    }
-    return (normal);
+	sphere = (t_sp *)object_data;
+	return (vector_normalize(vector_sub(hit_point, sphere->coord_colours.v)));
 }
 
-static  bool    is_in_shadow(t_vector hp, t_l light, t_scene *scene)
+/**
+ * @brief Calculates the surface normal at a point on a cylinder.
+ * 
+ * Computes the perpendicular distance from the hit point to the cylinder's
+ * central axis to determine the surface normal.
+ * 
+ * @param object_data Pointer to the cylinder object data.
+ * @param hit_point The point on the cylinder's surface
+ * where intersection occurred.
+ * @return The normalized surface normal vector at the hit point.
+ */
+static t_vector	get_cylinder_normal(void *object_data, t_vector hit_point)
 {
-    t_ray   shadow_ray;
-    void    *hit_o;
-    t_object_type hit_t;
-    float   t;
-    float   l_distance;
-    t_vector    diff_to_light;
+	t_cy		*cylinder;
+	t_vector	oc;
+	float		m;
+	t_vector	normal;
 
-    diff_to_light = vector_sub(light.coord.v, hp);
-    l_distance = vector_length(diff_to_light);
-    shadow_ray.direction = vector_normalize(diff_to_light);
-    shadow_ray.origin = vector_add(hp, vector_scale(shadow_ray.direction, 0.001f));
-    t = find_closest_intersection(shadow_ray, scene, &hit_o, &hit_t);
-    if (t > 0 && t < l_distance)
-        return (true);
-    return (false);
-}
-// Calculate Lighting (Phong Model)
-t_gd calculate_lighting(t_vector hpoint, t_vector normal, t_scene *scene, t_gd material_color)
-{
-    t_gd    final_color;
-    t_l light;
-    t_vector    light_dir;
-    bool    in_shadow;
-    float   diff_intensity;
-
-    final_color.r = material_color.r * scene->ambient.ratio;
-    final_color.g = material_color.g * scene->ambient.ratio;
-    final_color.b = material_color.b * scene->ambient.ratio;
-    light = scene->light;
-    light_dir = vector_normalize(vector_sub(light.coord.v, hpoint));
-    in_shadow = is_in_shadow(hpoint, light, scene);
-    if (!in_shadow)
-    {
-        diff_intensity = fmax(0.0f, vector_dot(normal, light_dir));
-        final_color.r += material_color.r * light.br * diff_intensity;
-        final_color.g += material_color.g * light.br * diff_intensity;
-        final_color.b += material_color.b * light.br * diff_intensity;
-    }
-    final_color.r = fmin(255, fmax(0, final_color.r));
-    final_color.g = fmin(255, fmax(0, final_color.g));
-    final_color.b = fmin(255, fmax(0, final_color.b));
-    return (final_color);
+	cylinder = (t_cy *)object_data;
+	oc = vector_sub(hit_point, cylinder->data.v);
+	m = vector_dot(oc, cylinder->data.nov);
+	normal = vector_sub(oc, vector_scale(cylinder->data.nov, m));
+	return (vector_normalize(normal));
 }
 
-/*
-// OLD code without debug
+/**
+ * @brief Gets the surface normal for any object type at a given hit point.
+ * 
+ * Dispatches to the appropriate normal calculation function based on the
+ * object type.
+ * 
+ * @param object_data Pointer to the object's data structure.
+ * @param type The type of the object (SPHERE, PLANE, or CYLINDER).
+ * @param hit_point The point on the object's surface
+ * where intersection occurred.
+ * @return The normalized surface normal vector at the hit point, or a default
+ *         upward vector if the type is unknown.
+ */
+static t_vector	getting_normal_for_object(void *object_data,
+			t_object_type type, t_vector hit_point)
+{
+	if (type == SPHERE)
+		return (get_sphere_normal(object_data, hit_point));
+	else if (type == PLANE)
+		return (vector_normalize(((t_gd *)object_data)->nov));
+	else if (type == CYLINDER)
+		return (get_cylinder_normal(object_data, hit_point));
+	return ((t_vector){0, 1, 0});
+}
+
+/**
+ * @brief Traces a ray through the scene and computes the color.
+ * 
+ * Finds the closest intersection point along the ray, calculates the surface
+ * normal, and applies lighting to determine the final pixel color. Returns
+ * a background color if no intersection is found.
+ * 
+ * @param ray The ray being traced through the scene.
+ * @param scene The scene containing all objects and lighting.
+ * @return The computed color for the ray, or a default background color
+ *         if no intersection occurs.
+ */
 t_gd	trace_ray(t_ray ray, t_scene *scene)
 {
-    t_gd			color;
-    void			*hit_object;
-    t_object_type	hit_type;
-    t_vector    hit_point;  //
-    t_vector    normal;     //
-    float			t;
-    // Inicializar cor de fundo (importante!)
-    color.r = 50;
-    color.g = 50;
-    color.b = 100;
-    // Teste das intersecções
-    t = find_closest_intersection(ray, scene, &hit_object, &hit_type);
-    if (t > 0)  // Se há intersecção
-    {
-        // Calcular o ponto de colisão
-        hit_point = vector_add(ray.origin, vector_scale(ray.direction, t));
-        // Calcular a normal no ponto de colisão (a implementar depois)
-        normal = getting_normal_for_object(hit_object, hit_type, hit_point);
-        // Obter a cor do objeto atingido
-        color = getting_object_color(hit_object, hit_type, color);
-        // Aplicar iluminação (a implementar depois)
-        color = calculate_lighting(hit_point, normal, scene, color);
-    }
-    return (color);
-}
-*/
+	float			t;
+	void			*hit_object;
+	t_object_type	hit_type;
+	t_vector		hit_point;
+	t_vector		normal;
 
-t_gd	trace_ray(t_ray ray, t_scene *scene)
-{
-    t_gd			color;
-    void			*hit_object;
-    t_object_type	hit_type;
-    t_vector		hit_point;
-    t_vector		normal;
-    float			t;
-    
-    color.r = 50;
-    color.g = 50;
-    color.b = 100;
-    
-    t = find_closest_intersection(ray, scene, &hit_object, &hit_type);
-    
-    if (t > 0)
-    {
-        hit_point = vector_add(ray.origin, vector_scale(ray.direction, t));
-        normal = getting_normal_for_object(hit_object, hit_type, hit_point);
-        color = getting_object_color(hit_object, hit_type, color);
-        color = calculate_lighting(hit_point, normal, scene, color);
-    }
-    return (color);
-}
-
-int	color_to_int(t_gd color) // Converts t_gd color to integer format for MLX
-{
-    return ((color.r << 16) | (color.g << 8) | color.b);
+	t = find_closest_intersection(ray, scene, &hit_object, &hit_type);
+	if (t > 0)
+	{
+		hit_point = vector_add(ray.origin, vector_scale(ray.direction, t));
+		normal = getting_normal_for_object(hit_object, hit_type, hit_point);
+		return (calculate_lighting(hit_point, normal, scene,
+				getting_material_color(hit_object, hit_type)));
+	}
+	return ((t_gd){50, 50, 100, {0, 0, 0}, {0, 0, 0}});
 }

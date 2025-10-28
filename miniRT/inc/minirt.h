@@ -6,19 +6,19 @@
 /*   By: viceda-s <viceda-s@student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 16:30:15 by viceda-s          #+#    #+#             */
-/*   Updated: 2025/10/23 14:53:35 by viceda-s         ###   ########.fr       */
+/*   Updated: 2025/10/27 20:03:07 by viceda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_H
 # define MINIRT_H
 
-#include <fcntl.h>
-#include <math.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <stdbool.h>
+# include <fcntl.h>
+# include <math.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <stdbool.h>
 # include <math.h>
 
 # include "../lib/libft/include/libft.h"
@@ -48,134 +48,161 @@
 
 typedef struct s_quadratic // equacao quadratica e formula de bhaskara
 {
-    float	a;
-    float	b;
-    float	c;
-    float	t1;
-    float	t2;
+	float	a;
+	float	b;
+	float	c;
+	float	t1;
+	float	t2;
 }	t_quadratic;
 
-typedef struct	s_vector // vectors
+typedef struct s_vector // vectors
 {
-    float	x;
-    float	y;
-    float	z;
+	float	x;
+	float	y;
+	float	z;
 }				t_vector;
 
-typedef struct s_gd{ // general data, but also plane
-    int	r;
-    int	g;
-    int	b;
-    t_vector	v;
-    t_vector	nov; // nov = normalized orientation vector
-} t_gd;
+typedef struct s_gd // general data, but also plane
+{
+	int			r;
+	int			g;
+	int			b;
+	t_vector	v;
+	t_vector	nov; // nov = normalized orientation vector
+}				t_gd;
 
-typedef struct	s_al{ //ambient light
-    float	ratio;
-    t_gd	colours;
-} t_al;
+typedef struct s_al //ambient light
+{
+	float	ratio;
+	t_gd	colours;
+}				t_al;
 
-typedef struct s_l{	//light
-    t_gd	coord;
-    float	br;	// brightness ratio
-} t_l;
+typedef struct s_l //light
+{
+	t_gd				coord;
+	t_gd				material_color;
+	struct s_scene		*scene;
+	t_vector			normal;
+	t_vector			light_dir;
+	float				br;	// brightness ratio
+}				t_l;
 
-typedef	struct s_sp { // sphere
-    t_gd        coord_colours;
-    t_vector    center;
-    float       r;  // radius
-    float       d;	//diameter;
-} t_sp;
+typedef struct s_sp // sphere
+{
+	t_gd		coord_colours;
+	float		d; //diameter;
+}				t_sp;
 
-typedef struct s_cy { // cylinder
-    t_gd	data;
-    float	d;
-    float	h; // height
-} t_cy;
+typedef struct s_cy // cylinder
+{
+	t_gd	data;
+	float	d;
+	float	h; // height
+}				t_cy;
 
 // Ray structures for raytracing
 typedef struct s_ray
 {
-    t_vector	origin;
-    t_vector	direction;
+	t_vector	origin;
+	t_vector	direction;
 }				t_ray;
 
 typedef struct s_camera
 {
-    t_vector	position;
-    t_vector	forward;
-    t_vector	up;                     // ?
-    t_vector	right;                  // ?
-    int		fov;
+	t_vector	position;
+	t_vector	forward; // z axis
+	t_vector	up; // y axis
+	t_vector	right; // x axis
+	int			fov;
 }				t_camera;
 
 typedef struct s_viewport
 {
-    int		width;
-    int		height;
-    float	aspect_ratio;
+	int		width;
+	int		height;
+	float	aspect_ratio;
 }				t_viewport;
 
-typedef enum e_object_type {
-    SPHERE,
-    PLANE,
-    CYLINDER
-} t_object_type;
-
-typedef struct s_objects { // linked list of objects
-    t_object_type	type;
-    void			*object_data; // *data like t_sp, t_pl or t_cy
-} t_objects;
-
-typedef struct s_scene {
-    t_al   ambient;    // Only one
-    t_camera    camera;     // Only one
-    t_l     light;    // Linked list (one for mandatory)
-    t_list    *objects_list;   // Linked list (spheres, planes, cylinders)
-} t_scene;
-
-typedef struct	s_minirt
+typedef enum e_object_type
 {
-    void		*mlx;
-    void		*win;
-    void		*img;
-    char		*addr;
-    int			bits_per_pixel;
-    int			line_length;
-    int			endian;
-    t_scene		*scene;
+	SPHERE,
+	PLANE,
+	CYLINDER
+}			t_object_type;
+
+typedef struct s_objects // linked list of objects
+{
+	t_object_type	type;
+	void			*object_data; // *data like t_sp, t_pl or t_cy
+}				t_objects;
+
+typedef struct s_compulsory
+{
+	size_t	ambient_set;
+	size_t	camera_set;
+	size_t	light_set;
+}				t_compulsory;
+
+typedef struct s_scene
+{
+	t_al			ambient; // Only one
+	t_camera		camera; // Only one
+	t_l				light; // Linked list (one for mandatory)
+	t_list			*objects_list; // Linked list (spheres, planes, cylinders)
+	t_compulsory	checklist;
+}				t_scene;
+
+typedef struct s_hit // closest ray-object intersection
+{
+	float			closest_t;
+	void			**hit_object;
+	t_object_type	*hit_type;
+}				t_hit;
+
+typedef struct s_minirt
+{
+	void		*mlx;
+	void		*win;
+	void		*img;
+	char		*addr;
+	int			bits_per_pixel;
+	int			line_length;
+	int			endian;
+	int			win_height;
+	int			win_width;
+	t_scene		*scene;
 }				t_minirt;
 
 // event.c
-int			exit_program(t_minirt *data);
-int			keypress_handler(int key, t_minirt *data);
+void		exit_program(t_minirt *data);
 int			close_window(t_minirt *data);
 void		init_event(t_minirt *data);
 
+// keys.c
+int			keypress_handler(int key, t_minirt *data);
+int			keypress_handler2(int key, t_minirt *data, int needs_render);
+int			keypress_handler3(int key, t_minirt *data, int needs_render);
+
 // camera_control.c
-t_vector	rotate_x(t_vector v, float angle);
-t_vector	rotate_y(t_vector v, float angle);
-t_vector	rotate_z(t_vector v, float angle);
+t_vector	rotate_axis(t_vector v, float angle, int axis);
 void		update_camera_vectors(t_camera *camera);
 void		rotate_camera(t_camera *camera, float pitch, float yaw, float roll);
 void		move_camera(t_camera *camera, t_vector direction, float distance);
-void		camera_move_forward(t_camera *camera, float distance);
-void		camera_move_right(t_camera *camera, float distance);
-void		camera_move_up(t_camera *camera, float distance);
+void		moving_camera(t_camera *camera, float distance, char flag);
 
 //main.c
 int			init_minirt_basic(t_minirt *data);
 void		render_test_scene(t_minirt *data);
 void		put_pixel(t_minirt *data, int x, int y, int color);
-void		cleanup_scene(void *scene);
+void		cleanup_scene(t_scene *scene);
 
-// load_scene.c
-size_t		lines_counting(char *filename);
-t_scene    *creating_scene(ssize_t *lines, char *filename); //
-t_scene		*load_scene(char *filename); //
+// parsing/load_scene.c
+t_scene		*creating_scene(char *filename);
+t_scene		*load_scene(char *file_path);
 
 // parse_utils.c
 void		skipping_emptiness(char **str);
+void		skip_comma(char **str);
 float		ft_atof_dp(char **str);
 int			ft_atoi_dp(char **str);
 
@@ -188,11 +215,13 @@ t_scene		*parse_scene(char *filename);
 
 // xyz_extraction.c
 void		extracting_xyz(t_scene *scene_coord, char **nums, char element);
-void    extracting_nov_cam(t_scene *scene_nov, char **novs);
+void		extracting_nov_cam(t_scene *scene_nov, char **novs);
 
 // object.c
-bool		creating_object(t_scene *scene_o, t_object_type type_o, size_t size_o);
+bool		creating_object(t_scene *scene_o, t_object_type type_o,
+				size_t size_o);
 void		*getting_latest_object(t_scene *scene_o, t_object_type type_o);
+void		free_object(void *obj);
 
 // sphere.c
 int			parsing_sphere(t_scene *scene_sphere, char *line_data_sphere);
@@ -231,16 +260,17 @@ float		intersect_plane(t_ray ray, t_gd *plane);
 float		intersect_cylinder(t_ray ray, t_cy *cylinder);
 
 // intersect_utils.c
-float	find_closest_sphere_intersection(t_ray ray, t_scene *scene, t_sp **hit_sphere);
-float	find_closest_plane_intersection(t_ray ray, t_scene *scene, t_gd **hit_plane);
-float	find_closest_intersection(t_ray ray, t_scene *scene, void **hit_object, t_object_type *hit_type);
+float		find_closest_sphere_intersection(t_ray ray, t_scene *scene,
+				t_sp **hit_sphere);
+float		find_closest_plane_intersection(t_ray ray, t_scene *scene,
+				t_gd **hit_plane);
+float		find_closest_cylinder_intersection(t_ray ray, t_scene *scene,
+				t_cy **hit_cylinder);
+float		find_closest_intersection(t_ray ray, t_scene *scene,
+				void **hit_object, t_object_type *hit_type);
 
 // lighting.c
-t_gd calculate_lighting(t_vector hpoint, t_vector normal, t_scene *scene, t_gd material_color);
-
-// utils.c
-int			validate_rt_extension(char *filename);
-void		ft_free_split(char **split);
-int			count_elements(char **split);
+t_gd		calculate_lighting(t_vector hpoint, t_vector normal,
+				t_scene *scene, t_gd material_color);
 
 #endif

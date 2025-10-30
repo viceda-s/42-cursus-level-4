@@ -21,8 +21,8 @@
 # include <stdbool.h>
 # include <math.h>
 
-# include "../lib/libft/include/libft.h"
-# include "../lib/minilibx-linux/mlx.h"
+# include "../../lib/libft/include/libft.h"
+# include "../../lib/minilibx-linux/mlx.h"
 
 # define ESC_KEY 65307
 # define WINDOW_WIDTH 800

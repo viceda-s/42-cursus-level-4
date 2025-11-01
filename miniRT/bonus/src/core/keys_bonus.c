@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   keys.c                                             :+:      :+:    :+:   */
+/*   keys_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: viceda-s <viceda-s@student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 19:26:13 by viceda-s          #+#    #+#             */
-/*   Updated: 2025/10/27 19:50:08 by viceda-s         ###   ########.fr       */
+/*   Updated: 2025/10/30 08:10:11 by viceda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,12 @@ int	keypress_handler3(int key, t_minirt *data, int needs_render)
 	}
 	else if (key == KEY_LEFT)
 	{
-		rotate_camera(&data->scene->camera, 0, -ROTATE_SPEED, 0);
+		rotate_camera(&data->scene->camera, 0, ROTATE_SPEED, 0);
 		needs_render = 1;
 	}
 	else if (key == KEY_RIGHT)
 	{
-		rotate_camera(&data->scene->camera, 0, ROTATE_SPEED, 0);
+		rotate_camera(&data->scene->camera, 0, -ROTATE_SPEED, 0);
 		needs_render = 1;
 	}
 	render_keys(data, needs_render);

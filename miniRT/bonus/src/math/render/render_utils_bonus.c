@@ -1,12 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render_utils.c                                     :+:      :+:    :+:   */
+/*   render_utils_bonus.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: viceda-s <viceda-s@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/30 13:59:42 by viceda-s          #+#    #+#             */
+/*   Updated: 2025/10/30 14:09:34 by viceda-s         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   render_utils_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: viceda-s <viceda-s@student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 08:21:32 by viceda-s          #+#    #+#             */
-/*   Updated: 2025/10/27 19:10:23 by viceda-s         ###   ########.fr       */
+/*   Updated: 2025/10/29 15:47:24 by viceda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +43,13 @@ static t_gd	getting_material_color(void *object_data, t_object_type type)
 		return (*((t_gd *)object_data));
 	else if (type == CYLINDER)
 		return (((t_cy *)object_data)->data);
-	return ((t_gd){0, 0, 0, {0, 0, 0}, {0, 0, 0}});
+	return ((t_gd){
+		.r = 50,
+		.g = 50,
+		.b = 100,
+		.v = {0, 0, 0},
+		.nov = {0, 0, 0}
+	});
 }
 
 /**
@@ -120,16 +138,25 @@ t_gd	trace_ray(t_ray ray, t_scene *scene)
 	float			t;
 	void			*hit_object;
 	t_object_type	hit_type;
-	t_vector		hit_point;
-	t_vector		normal;
+	t_shade			s;
 
 	t = find_closest_intersection(ray, scene, &hit_object, &hit_type);
 	if (t > 0)
 	{
-		hit_point = vector_add(ray.origin, vector_scale(ray.direction, t));
-		normal = getting_normal_for_object(hit_object, hit_type, hit_point);
-		return (calculate_lighting(hit_point, normal, scene,
-				getting_material_color(hit_object, hit_type), ray.direction));
+		s.hit_point = vector_add(ray.origin, vector_scale(ray.direction, t));
+		s.normal = getting_normal_for_object(hit_object, hit_type, s.hit_point);
+		s.view_dir = ray.direction;
+		s.material_color = getting_material_color(hit_object, hit_type);
+		s.scene = scene;
+		s.hit_object = hit_object;
+		s.hit_type = hit_type;
+		return (calculate_lighting(&s));
 	}
-	return ((t_gd){50, 50, 100, {0, 0, 0}, {0, 0, 0}});
+	return ((t_gd){
+		.r = 50,
+		.g = 50,
+		.b = 100,
+		.v = {0, 0, 0},
+		.nov = {0, 0, 0}
+	});
 }

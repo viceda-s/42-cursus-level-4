@@ -6,7 +6,7 @@
 #    By: viceda-s <viceda-s@student.42luxembourg    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/13 12:34:14 by viceda-s          #+#    #+#              #
-#    Updated: 2025/10/28 08:28:39 by viceda-s         ###   ########.fr        #
+#    Updated: 2025/10/28 15:44:30 by viceda-s         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,8 +57,11 @@ LIBS = -L$(LIBFT_DIR) -lft -L$(MLX_DIR) -lmlx -lX11 -lXext -lm
 
 # Colors for output
 GREEN = \033[0;32m
+GREEN_BOLD = \033[1;32m
 RED = \033[0;31m
+RED_BOLD = \033[1;31m
 YELLOW = \033[0;33m
+YELLOW_BOLD = \033[1;33m
 NC = \033[0m # No Color
 
 # Rules
@@ -67,7 +70,7 @@ all: $(NAME)
 $(NAME): $(LIBFT) $(MLX) $(OBJS)
 	@echo "$(YELLOW)Linking $(NAME)...$(NC)"
 	@$(CC) $(OBJS) $(LIBS) -o $(NAME)
-	@echo "$(GREEN)✅ $(NAME) compiled successfully!$(NC)"
+	@echo "$(GREEN_BOLD)✅ $(NAME) compiled successfully!$(NC)"
 
 # Create object directory structure
 $(OBJ_DIR):
@@ -88,25 +91,27 @@ $(OBJ_DIR)/%.o: %.c | $(OBJ_DIR)
 # Build libft
 $(LIBFT):
 	@echo "$(YELLOW)Building libft...$(NC)"
-	@make -C $(LIBFT_DIR)
+	@make -s -C $(LIBFT_DIR) --no-print-directory > /dev/null
+	@echo "$(GREEN_BOLD)✅ libft compiled!$(NC)"
 
 # Build MLX
 $(MLX):
-	@echo "$(YELLOW)Building MLX...$(NC)"
-	@make -C $(MLX_DIR)
+	@echo "$(YELLOW)Building MiniLibX...$(NC)"
+	@make -s -C $(MLX_DIR) --no-print-directory > /dev/null
+	@echo "$(GREEN_BOLD)✅ MiniLibX compiled!$(NC)"
 
 # Clean object files
 clean:
 	@echo "$(RED)Cleaning object files...$(NC)"
 	@rm -rf $(OBJ_DIR)
-	@make -C $(LIBFT_DIR) clean
-	@make -C $(MLX_DIR) clean
+	@make -s -C $(LIBFT_DIR) clean --no-print-directory > /dev/null
+	@make -s -C $(MLX_DIR) clean --no-print-directory > /dev/null
 
 # Clean everything
 fclean: clean
 	@echo "$(RED)Cleaning $(NAME)...$(NC)"
 	@rm -f $(NAME)
-	@make -C $(LIBFT_DIR) fclean
+	@make -s -C $(LIBFT_DIR) fclean --no-print-directory > /dev/null
 
 # Rebuild everything
 re: fclean all

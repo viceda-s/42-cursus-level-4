@@ -6,7 +6,7 @@
 #    By: viceda-s <viceda-s@student.42luxembourg    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/13 12:34:14 by viceda-s          #+#    #+#              #
-#    Updated: 2025/10/28 08:28:39 by viceda-s         ###   ########.fr        #
+#    Updated: 2025/10/28 15:59:54 by viceda-s         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,20 +25,20 @@ MLX = $(MLX_DIR)/libmlx.a
 
 # Rules
 all:
-	@$(MAKE) -C $(MANDATORY_DIR)
+	@$(MAKE) -s -C $(MANDATORY_DIR)
 
 bonus:
-	@$(MAKE) -C $(BONUS_DIR)
+	@$(MAKE) -s -C $(BONUS_DIR)
 
 # Clean object files
 clean:
-	@$(MAKE) -C $(MANDATORY_DIR) clean
-	@$(MAKE) -C $(BONUS_DIR) clean
+	@$(MAKE) -s -C $(MANDATORY_DIR) clean
+	@$(MAKE) -s -C $(BONUS_DIR) clean
 
 # Clean everything
 fclean: clean
-	@$(MAKE) -C $(MANDATORY_DIR) fclean
-	@$(MAKE) -C $(BONUS_DIR) fclean
+	@$(MAKE) -s -C $(MANDATORY_DIR) fclean
+	@$(MAKE) -s -C $(BONUS_DIR) fclean
 	@echo "All binaries cleaned."
 
 # Rebuild everything

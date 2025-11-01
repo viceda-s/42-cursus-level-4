@@ -6,7 +6,7 @@
 #    By: viceda-s <viceda-s@student.42luxembourg    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/13 12:34:14 by viceda-s          #+#    #+#              #
-#    Updated: 2025/10/28 08:28:39 by viceda-s         ###   ########.fr        #
+#    Updated: 2025/10/31 15:07:47 by viceda-s         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ SRCS = $(SRC_DIR)/main_bonus.c \
        $(SRC_DIR)/core/keys_bonus.c \
        $(SRC_DIR)/core/camera_control_bonus.c \
        $(SRC_DIR)/parsing/parsing_bonus.c \
+       $(SRC_DIR)/parsing/parse_helper_bonus.c \
        $(SRC_DIR)/parsing/parse_utils_bonus.c \
        $(SRC_DIR)/parsing/load_scene_bonus.c \
        $(SRC_DIR)/parsing/xyz_extraction_bonus.c \
@@ -40,9 +41,11 @@ SRCS = $(SRC_DIR)/main_bonus.c \
        $(SRC_DIR)/math/vector/vector_ops_bonus.c \
        $(SRC_DIR)/math/vector/vector_geo_bonus.c \
        $(SRC_DIR)/math/ray/ray_ops_bonus.c \
+       $(SRC_DIR)/math/render/render_aa_bonus.c \
+       $(SRC_DIR)/math/render/render_checker_bonus.c \
+       $(SRC_DIR)/math/render/render_phong_bonus.c \
        $(SRC_DIR)/math/render/render_scene_bonus.c \
        $(SRC_DIR)/math/render/render_utils_bonus.c \
-       $(SRC_DIR)/math/render/specular_bonus.c \
        $(SRC_DIR)/math/intersect/intersect_bonus.c \
        $(SRC_DIR)/math/intersect/intersect_check_bonus.c \
        $(SRC_DIR)/math/intersect/intersect_utils_bonus.c

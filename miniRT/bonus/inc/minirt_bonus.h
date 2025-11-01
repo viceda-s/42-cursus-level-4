@@ -87,6 +87,10 @@ typedef struct s_gd
 	int			g;
 	int			b;
 	bool		checker;
+	/* optional procedural bump mapping parameters */
+	bool		has_bump;
+	float		bump_strength; /* default 1.0 */
+	t_vector	bump_uv; /* scale for u,v (x,y) */
 	t_vector	v; /* coordinate or origin */
 	t_vector	nov; /* normalized orientation vector */
 }				t_gd;
@@ -263,6 +267,9 @@ int			parsing_objects(t_scene *sc4, char *line_data4);
 void		parse_checker_plane(char **ptr, t_gd *gd);
 void		parse_checker_sphere(char **ptr, t_sp *sp);
 void		parse_checker_cylinder(char **ptr, t_cy *cy);
+void		parse_bump_plane(char **ptr, t_gd *gd);
+void		parse_bump_sphere(char **ptr, t_sp *sp);
+void		parse_bump_cylinder(char **ptr, t_cy *cy);
 t_vector	parse_vector(char **ptr);
 void		parse_color(char **ptr, t_gd *col);
 

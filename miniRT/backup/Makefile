@@ -6,7 +6,7 @@
 #    By: viceda-s <viceda-s@student.42luxembourg    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/13 12:34:14 by viceda-s          #+#    #+#              #
-#    Updated: 2025/10/28 08:28:39 by viceda-s         ###   ########.fr        #
+#    Updated: 2025/10/31 15:07:47 by viceda-s         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME = miniRT
 # Directories
 SRC_DIR = src
 INC_DIR = inc
-LIB_DIR = lib
+LIB_DIR = ../lib
 OBJ_DIR = obj
 
 # Libraries
@@ -25,26 +25,30 @@ MLX_DIR = $(LIB_DIR)/minilibx-linux
 MLX = $(MLX_DIR)/libmlx.a
 
 # Source files
-SRCS = $(SRC_DIR)/main.c \
-       $(SRC_DIR)/core/event.c \
-       $(SRC_DIR)/core/keys.c \
-       $(SRC_DIR)/core/camera_control.c \
-       $(SRC_DIR)/parsing/parsing.c \
-       $(SRC_DIR)/parsing/parse_utils.c \
-       $(SRC_DIR)/parsing/load_scene.c \
-       $(SRC_DIR)/parsing/xyz_extraction.c \
-       $(SRC_DIR)/objects/object.c \
-       $(SRC_DIR)/objects/sphere.c \
-       $(SRC_DIR)/objects/cylinder.c \
-       $(SRC_DIR)/objects/plane.c \
-       $(SRC_DIR)/math/vector/vector_ops.c \
-       $(SRC_DIR)/math/vector/vector_geo.c \
-       $(SRC_DIR)/math/ray/ray_ops.c \
-       $(SRC_DIR)/math/render/render_scene.c \
-       $(SRC_DIR)/math/render/render_utils.c \
-       $(SRC_DIR)/math/intersect/intersect.c \
-       $(SRC_DIR)/math/intersect/intersect_check.c \
-       $(SRC_DIR)/math/intersect/intersect_utils.c
+SRCS = $(SRC_DIR)/main_bonus.c \
+       $(SRC_DIR)/core/event_bonus.c \
+       $(SRC_DIR)/core/keys_bonus.c \
+       $(SRC_DIR)/core/camera_control_bonus.c \
+       $(SRC_DIR)/parsing/parsing_bonus.c \
+       $(SRC_DIR)/parsing/parse_helper_bonus.c \
+       $(SRC_DIR)/parsing/parse_utils_bonus.c \
+       $(SRC_DIR)/parsing/load_scene_bonus.c \
+       $(SRC_DIR)/parsing/xyz_extraction_bonus.c \
+       $(SRC_DIR)/objects/object_bonus.c \
+       $(SRC_DIR)/objects/sphere_bonus.c \
+       $(SRC_DIR)/objects/cylinder_bonus.c \
+       $(SRC_DIR)/objects/plane_bonus.c \
+       $(SRC_DIR)/math/vector/vector_ops_bonus.c \
+       $(SRC_DIR)/math/vector/vector_geo_bonus.c \
+       $(SRC_DIR)/math/ray/ray_ops_bonus.c \
+       $(SRC_DIR)/math/render/render_aa_bonus.c \
+       $(SRC_DIR)/math/render/render_checker_bonus.c \
+       $(SRC_DIR)/math/render/render_phong_bonus.c \
+       $(SRC_DIR)/math/render/render_scene_bonus.c \
+       $(SRC_DIR)/math/render/render_utils_bonus.c \
+       $(SRC_DIR)/math/intersect/intersect_bonus.c \
+       $(SRC_DIR)/math/intersect/intersect_check_bonus.c \
+       $(SRC_DIR)/math/intersect/intersect_utils_bonus.c
 
 # Object files
 OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)

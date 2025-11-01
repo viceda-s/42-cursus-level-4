@@ -64,6 +64,8 @@ sphe->coord_colours.g > 255 || sphe->coord_colours.b < 0 || \
 sphe->coord_colours.b > 255)
 		return (1);
 	parse_checker_sphere(&ptr_sp, sphe);
+	parse_bump_sphere(&ptr_sp, sphe);
+	skipping_emptiness(&ptr_sp);
 	if (*ptr_sp != '\0')
 		return (1);
 	return (0);

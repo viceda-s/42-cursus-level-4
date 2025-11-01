@@ -62,6 +62,8 @@ int	parsing_cylinder(t_scene *scene_cylinder, char *line_data_cylinder)
 	if (extracting_rest_cy(cyl, &ptr_cy))
 		return (1);
 	parse_checker_cylinder(&ptr_cy, cyl);
+	parse_bump_cylinder(&ptr_cy, cyl);
+	skipping_emptiness(&ptr_cy);
 	if (*ptr_cy != '\0')
 		return (1);
 	return (0);

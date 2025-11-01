@@ -57,12 +57,17 @@ static t_scene	*continuing_processing(char *line, t_scene *scn, int *fdesc)
 // Inside t_scene, allocate arrays for objects/lights based on parsed counts
 static t_scene	*processing_lines(t_scene *scn, int *fdesc, char *lin)
 {
+	char	*trimmed;
+
 	while (1)
 	{
 		lin = get_next_line(*fdesc);
 		if (!lin)
 			break ;
-		if (*lin == '\n' || *lin == '\0')
+		trimmed = lin;
+		while (*trimmed == ' ' || *trimmed == '\t')
+			trimmed++;
+		if (*trimmed == '\n' || *trimmed == '\0' || *trimmed == '#')
 		{
 			free(lin);
 			continue ;

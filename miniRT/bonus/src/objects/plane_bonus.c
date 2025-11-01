@@ -62,6 +62,8 @@ pla->nov.x > 1.0 || pla->nov.y < -1.0 || pla->nov.y > 1.0)
 pla->g < 0 || pla->g > 255)
 		return (1);
 	parse_checker_plane(&ptr_pl, pla);
+	parse_bump_plane(&ptr_pl, pla);
+	skipping_emptiness(&ptr_pl);
 	if (*ptr_pl != '\0')
 		return (1);
 	return (0);

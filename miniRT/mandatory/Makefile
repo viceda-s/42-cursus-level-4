@@ -26,17 +26,21 @@ MLX = $(MLX_DIR)/libmlx.a
 
 # Source files
 SRCS = $(SRC_DIR)/main.c \
+       $(SRC_DIR)/core/camera_control.c \
        $(SRC_DIR)/core/event.c \
        $(SRC_DIR)/core/keys.c \
-       $(SRC_DIR)/core/camera_control.c \
+       $(SRC_DIR)/core/light_control.c \
+       $(SRC_DIR)/core/object_control.c \
+       $(SRC_DIR)/core/object_selection.c \
        $(SRC_DIR)/parsing/parsing.c \
        $(SRC_DIR)/parsing/parse_utils.c \
        $(SRC_DIR)/parsing/load_scene.c \
-       $(SRC_DIR)/parsing/xyz_extraction.c \
+       $(SRC_DIR)/parsing/parse_helper.c \
        $(SRC_DIR)/objects/object.c \
        $(SRC_DIR)/objects/sphere.c \
        $(SRC_DIR)/objects/cylinder.c \
        $(SRC_DIR)/objects/plane.c \
+       $(SRC_DIR)/objects/transform.c \
        $(SRC_DIR)/math/vector/vector_ops.c \
        $(SRC_DIR)/math/vector/vector_geo.c \
        $(SRC_DIR)/math/ray/ray_ops.c \

@@ -3,10 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   keys.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+/*   By: viceda-s <viceda-s@student.42luxembourg.>  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/04 13:22:47 by viceda-s          #+#    #+#             */
+/*   Updated: 2025/11/04 13:22:47 by viceda-s         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   keys_bonus.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
 /*   By: viceda-s <viceda-s@student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 19:26:13 by viceda-s          #+#    #+#             */
-/*   Updated: 2025/10/27 19:50:08 by viceda-s         ###   ########.fr       */
+/*   Updated: 2025/11/03 14:51:36 by viceda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +42,18 @@ int	keypress_handler3(int key, t_minirt *data, int needs_render)
 	}
 	else if (key == KEY_LEFT)
 	{
-		rotate_camera(&data->scene->camera, 0, -ROTATE_SPEED, 0);
+		rotate_camera(&data->scene->camera, 0, ROTATE_SPEED, 0);
 		needs_render = 1;
 	}
 	else if (key == KEY_RIGHT)
 	{
-		rotate_camera(&data->scene->camera, 0, ROTATE_SPEED, 0);
+		rotate_camera(&data->scene->camera, 0, -ROTATE_SPEED, 0);
 		needs_render = 1;
+	}
+	else
+	{
+		needs_render |= keypress_handler_lights(key, data);
+		needs_render |= keypress_handler_objects(key, data);
 	}
 	render_keys(data, needs_render);
 	return (0);

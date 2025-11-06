@@ -6,11 +6,11 @@
 /*   By: viceda-s <viceda-s@student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 12:17:41 by rbaldin           #+#    #+#             */
-/*   Updated: 2025/10/31 14:32:22 by viceda-s         ###   ########.fr       */
+/*   Updated: 2025/11/06 11:01:55 by viceda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/minirt_bonus.h"
+#include "minirt_bonus.h"
 
 bool	creating_object(t_scene *scene_o, t_object_type type_o, size_t size_o)
 {
@@ -50,38 +50,4 @@ void	*getting_latest_object(t_scene *scene_o, t_object_type type_o)
 	if (container->type != type_o)
 		return (NULL);
 	return (container->object_data);
-}
-
-/*
-void	*getting_latest_object(t_scene *scene_o, t_object_type type_o)
-{
-    t_list		*last_node;
-    t_objects	*obj;
-
-    if (!scene_o || !scene_o->objects_list)
-        return (NULL);
-
-    last_node = ft_lstlast(scene_o->objects_list);
-    if (!last_node || !last_node->content)
-        return (NULL);
-
-    obj = (t_objects *)last_node->content;
-
-    if (obj->type == type_o)
-        return (obj->object_data);
-
-    return (NULL);
-}
-*/
-
-void	free_object(void *content)
-{
-	t_objects	*object;
-
-	if (!content)
-		return ;
-	object = (t_objects *)content;
-	if (object->object_data)
-		free(object->object_data);
-	free(object);
 }

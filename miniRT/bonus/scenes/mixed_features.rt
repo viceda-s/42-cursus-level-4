@@ -1,0 +1,71 @@
+# Mixed Features Scene
+# Combines textures, checkerboard, bump mapping, and multiple lights
+
+A 0.15 240,240,255
+
+C -15,12,25 0.4,-0.3,-0.7 75
+
+# Warm key light
+L -25,30,15 0.7 255,230,200
+
+# Cool fill light
+L 20,20,20 0.4 200,220,255
+
+# Rim light
+L 0,10,-15 0.3 255,200,255
+
+# === CENTER PIECE ===
+
+# Large textured sphere (planet)
+sp 0,5,0 7 150,180,255 tx:textures/earth.xpm
+
+# Orbital ring - small spheres
+sp 8,5,0 1.5 255,200,100
+sp -8,5,0 1.5 100,200,255
+sp 0,5,8 1.5 200,100,255
+sp 0,5,-8 1.5 100,255,200
+
+# === LEFT SIDE - CHECKERBOARD ===
+
+# Checkerboard sphere stack
+sp -12,2,5 3 200,50,50 ck
+sp -12,8,5 3 50,200,50 ck
+sp -12,14,5 3 50,50,200 ck
+
+# Checkerboard plane (left wall)
+pl -20,0,0 1,0,0 180,180,180 ck
+
+# === RIGHT SIDE - BUMP MAPPING ===
+
+# Bumpy sphere stack
+sp 12,2,5 3 200,100,50 bm:1.5,2.0,2.0
+sp 12,8,5 3 100,200,50 bm:1.2,2.5,2.5
+sp 12,14,5 3 50,100,200 bm:1.8,1.5,1.5
+
+# Bumpy plane (right wall)
+pl 20,0,0 -1,0,0 150,150,170 bm:1.0,2.0,2.0
+
+# === GROUND ELEMENTS ===
+
+# Checkerboard floor
+pl 0,-2,0 0,1,0 160,160,160 ck
+
+# Textured cylinder (column)
+cy -5,-2,-5 0,1,0 2 12 200,200,100 tx:textures/earth.xpm
+
+# Checkerboard cylinder (column)
+cy 5,-2,-5 0,1,0 2 12 100,200,200 ck
+
+# === BACKGROUND ===
+
+# Bumpy back wall
+pl 0,0,-15 0,0,1 120,140,160 bm:0.8,3.0,3.0
+
+# Textured cube (floating)
+cu 0,12,-5 4 180,150,200 tx:textures/earth.xpm
+
+# Checkerboard cube (floating)
+cu -8,10,-8 3 200,180,150 ck
+
+# Bumpy cube (floating)
+cu 8,10,-8 3 150,200,180 bm:1.5,2.0,2.0

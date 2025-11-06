@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   intersect_utils.c                                  :+:      :+:    :+:   */
+/*   intersect_utils_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: viceda-s <viceda-s@student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 08:38:10 by viceda-s          #+#    #+#             */
-/*   Updated: 2025/10/25 18:23:54 by viceda-s         ###   ########.fr       */
+/*   Updated: 2025/11/03 18:32:30 by viceda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,36 @@ float	find_closest_cylinder_intersection(t_ray ray, t_scene *scene,
 			{
 				closest_t = t;
 				*hit_cylinder = cylinder;
+			}
+		}
+		current = current->next;
+	}
+	return (closest_t);
+}
+
+float	find_closest_cube_intersection(t_ray ray, t_scene *scene,
+			t_cu **hit_cube)
+{
+	t_list		*current;
+	t_objects	*obj;
+	t_cu		*cu;
+	float		closest_t;
+	float		t;
+
+	closest_t = -1.0f;
+	*hit_cube = NULL;
+	current = scene->objects_list;
+	while (current)
+	{
+		obj = (t_objects *)current->content;
+		if (obj->type == CUBE)
+		{
+			cu = (t_cu *)obj->object_data;
+			t = intersect_cube(ray, cu);
+			if (t > 0.001f && (closest_t < 0 || t < closest_t))
+			{
+				closest_t = t;
+				*hit_cube = cu;
 			}
 		}
 		current = current->next;

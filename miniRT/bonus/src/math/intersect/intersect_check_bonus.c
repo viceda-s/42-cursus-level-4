@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   intersect_check.c                                  :+:      :+:    :+:   */
+/*   intersect_check_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: viceda-s <viceda-s@student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 08:38:10 by viceda-s          #+#    #+#             */
-/*   Updated: 2025/10/27 08:44:25 by viceda-s         ###   ########.fr       */
+/*   Updated: 2025/11/03 18:25:50 by viceda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,21 @@ static void	check_cylinder_intersection(t_ray ray, t_scene *scene,
 	}
 }
 
+static void	check_cube_intersection(t_ray r, t_scene *sce, t_hit *inf)
+{
+	t_cu	*hit_cube;
+	float	cube_t;
+
+	cube_t = find_closest_cube_intersection(r, sce, &hit_cube);
+	if (cube_t > 0.001f \
+&& (inf->closest_t < 0 || cube_t < inf->closest_t))
+	{
+		inf->closest_t = cube_t;
+		*inf->hit_object = hit_cube;
+		*inf->hit_type = CUBE;
+	}
+}
+
 /**
  * @brief Finds the closest intersection of a ray with any object in the scene.
  * 
@@ -115,5 +130,6 @@ float	find_closest_intersection(t_ray ray, t_scene *scene, void **hit_object,
 	check_sphere_intersection(ray, scene, &info);
 	check_plane_intersection(ray, scene, &info);
 	check_cylinder_intersection(ray, scene, &info);
+	check_cube_intersection(ray, scene, &info);
 	return (info.closest_t);
 }

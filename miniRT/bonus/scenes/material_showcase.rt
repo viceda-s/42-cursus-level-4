@@ -1,0 +1,59 @@
+# Material Showcase Scene
+# Demonstrates all available XPM textures
+
+A 0.2 255,255,255
+
+C 0,8,28 0,-0.15,-1 70
+
+L -15,25,15 0.7 255,255,255
+L 15,20,10 0.5 255,240,220
+
+# === TEXTURED OBJECTS ROW ===
+
+# Earth texture sphere
+sp -15,5,0 4 100,100,255 tx:textures/earthmap1k.xpm bm:textures/earthbump1k.xpm
+
+# Brick texture cube
+cu -7.5,5,0 0,1,0 4 200,100,50 tx:textures/brick.xpm
+
+# Wood texture cylinder
+cy 0,2,0 0,1,0 2 8 150,100,50 tx:textures/wood.xpm
+
+# Metal texture sphere
+sp 7.5,5,0 4 180,180,200 tx:textures/metal.xpm
+
+# Grass texture cube
+cu 15,5,0 0,1,0 4 100,200,100 tx:textures/brick.xpm
+
+# === CHECKERBOARD PATTERNS ROW ===
+
+# Red checker sphere
+sp -15,5,-12 3 200,50,50 ck
+
+# Green checker cylinder
+cy -7.5,2,-12 0,1,0 1.5 6 50,200,50 ck
+
+# Blue checker cube
+cu 0,5,-12 0,1,0 3 50,50,200 ck
+
+# Yellow checker sphere
+sp 7.5,5,-12 3 200,200,50 ck
+
+# Cyan checker cylinder
+cy 15,2,-12 0,1,0 1.5 6 50,200,200 ck
+
+# === GROUND ===
+
+# Grass textured floor
+pl 0,-2,0 0,1,0 100,150,100 tx:textures/grass.xpm
+
+# === WALLS ===
+
+# Brick back wall
+pl 0,5,-18 0,0,1 150,100,80 tx:textures/wood.xpm
+
+# Wood left wall
+#pl -22,5,0 1,0,0 120,80,50 tx:textures/wood.xpm
+
+# Metal right wall  
+#pl 22,5,0 -1,0,0 160,160,180 tx:textures/metal.xpm

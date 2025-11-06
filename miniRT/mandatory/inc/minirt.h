@@ -3,6 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+/*   By: viceda-s <viceda-s@student.42luxembourg.>  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/04 13:25:48 by viceda-s          #+#    #+#             */
+/*   Updated: 2025/11/04 14:43:06 by viceda-s         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minirt.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
 /*   By: viceda-s <viceda-s@student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 16:30:15 by viceda-s          #+#    #+#             */
@@ -28,7 +40,7 @@
 # define WINDOW_WIDTH 800
 # define WINDOW_HEIGHT 600
 
-// Movement keys
+/* Movement keys */
 # define KEY_W 119
 # define KEY_A 97
 # define KEY_S 115
@@ -36,11 +48,32 @@
 # define KEY_Q 113
 # define KEY_E 101
 
-// Arrow keys for rotation
+/* Arrow keys */
 # define KEY_UP 65362
 # define KEY_DOWN 65364
 # define KEY_LEFT 65361
 # define KEY_RIGHT 65363
+
+/* Light movement keys */
+# define KEY_I 105
+# define KEY_J 106
+# define KEY_K 107
+# define KEY_L 108
+# define KEY_U 117
+# define KEY_O 111
+
+/* Object control keys (Numpad) */
+# define KEY_TAB 65289
+# define KEY_PAD_2 65433
+# define KEY_PAD_4 65430
+# define KEY_PAD_6 65432
+# define KEY_PAD_8 65431
+# define KEY_PAD_7 65429
+# define KEY_PAD_9 65434
+# define KEY_PAD_UP 65431 // Same as 8
+# define KEY_PAD_DOWN 65433 // Same as 2
+# define KEY_PAD_LEFT 65430 // Same as 4
+# define KEY_PAD_RIGHT 65432 // Same as 6
 
 // Movement and rotation speed
 # define MOVE_SPEED 5.0f
@@ -54,6 +87,13 @@ typedef struct s_quadratic // equacao quadratica e formula de bhaskara
 	float	t1;
 	float	t2;
 }	t_quadratic;
+
+typedef struct s_rotation
+{
+	float	pitch;
+	float	yaw;
+	float	roll;
+}				t_rotation;
 
 typedef struct s_vector // vectors
 {
@@ -79,6 +119,7 @@ typedef struct s_al //ambient light
 
 typedef struct s_l //light
 {
+	t_vector			position;
 	t_gd				coord;
 	t_gd				material_color;
 	struct s_scene		*scene;
@@ -149,6 +190,7 @@ typedef struct s_scene
 	t_camera		camera; // Only one
 	t_l				light; // Linked list (one for mandatory)
 	t_list			*objects_list; // Linked list (spheres, planes, cylinders)
+	t_objects		*selected_object; /* currently selected object */
 	t_compulsory	checklist;
 }				t_scene;
 
@@ -183,7 +225,17 @@ int			keypress_handler(int key, t_minirt *data);
 int			keypress_handler2(int key, t_minirt *data, int needs_render);
 int			keypress_handler3(int key, t_minirt *data, int needs_render);
 
-// camera_control.c
+/* light_control.c */
+int			keypress_handler_lights(int key, t_minirt *data);
+
+/* object_control.c */
+int			keypress_handler_objects(int key, t_minirt *data);
+
+/* object_selection.c */
+void		init_selection(t_scene *scene);
+void		select_next_object(t_scene *scene);
+
+/* camera_control.c */
 t_vector	rotate_axis(t_vector v, float angle, int axis);
 void		update_camera_vectors(t_camera *camera);
 void		rotate_camera(t_camera *camera, float pitch, float yaw, float roll);
@@ -191,7 +243,7 @@ void		move_camera(t_camera *camera, t_vector direction, float distance);
 void		moving_camera(t_camera *camera, float distance, char flag);
 
 //main.c
-int			init_minirt_basic(t_minirt *data);
+int			init_minirt(t_minirt *data);
 void		render_test_scene(t_minirt *data);
 void		put_pixel(t_minirt *data, int x, int y, int color);
 void		cleanup_scene(t_scene *scene);
@@ -213,9 +265,9 @@ int			parsing_light(t_scene *sc3, char *line_data3);
 int			parsing_objects(t_scene *sc4, char *line_data4);
 t_scene		*parse_scene(char *filename);
 
-// xyz_extraction.c
-void		extracting_xyz(t_scene *scene_coord, char **nums, char element);
-void		extracting_nov_cam(t_scene *scene_nov, char **novs);
+// parse_helper.c
+t_vector	parse_vector(char **ptr);
+int			parse_color(char **ptr, t_gd *col);
 
 // object.c
 bool		creating_object(t_scene *scene_o, t_object_type type_o,
@@ -231,6 +283,11 @@ int			parsing_plane(t_scene *scene_plane, char *line_data_plane);
 
 // cylinder.c
 int			parsing_cylinder(t_scene *scene_cylinder, char *line_data_cylinder);
+
+// transform.c
+void		translate_object(void *obj, t_object_type type, t_vector offset);
+void		rotate_object(void *obj, t_object_type type, t_rotation rot);
+void		translate_light(t_l *light, t_vector offset);
 
 // render_scene.c
 void		render_scene(t_scene *scene, t_minirt *data);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_aa_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: viceda-s <viceda-s@student.42luxembourg.>  +#+  +:+       +#+        */
+/*   By: viceda-s <viceda-s@student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 15:16:13 by viceda-s          #+#    #+#             */
-/*   Updated: 2025/10/30 15:16:13 by viceda-s         ###   ########.fr       */
+/*   Updated: 2025/11/03 16:12:06 by viceda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,26 +74,50 @@ t_gd	get_pixel_color_with_aa(t_scene *scene, int x, int y,
 {
 	t_gd	final_color;
 	t_ray	ray;
-	int		i;
-	float	rgb[3];
 
-	rgb[0] = 0;
-	rgb[1] = 0;
-	rgb[2] = 0;
+	ray = camera_ray_aa(scene->camera, x + 0.5f, y + 0.5f, viewport);
+	final_color = trace_ray(ray, scene);
+	final_color.checker = false;
+	return (final_color);
+}
+
+static void	accumulate_sample(t_aa_params *p, int i, int samples, float *data)
+{
+	float	offset[2];
+	float	weight;
+	t_ray	ray;
+	t_gd	color;
+
+	stratified_sample(i, samples, &offset[0], &offset[1]);
+	weight = gaussian_weight(offset[0], offset[1], 0.5f, 0.5f);
+	ray = camera_ray_aa(p->scene->camera, p->x + offset[0],
+			p->y + offset[1], p->viewport);
+	color = trace_ray(ray, p->scene);
+	data[0] += color.r * weight;
+	data[1] += color.g * weight;
+	data[2] += color.b * weight;
+	data[3] += weight;
+}
+
+t_gd	get_pixel_color_aa_quality(t_aa_params params, int samples)
+{
+	t_gd	final_color;
+	float	data[4];
+	int		i;
+
+	data[0] = 0;
+	data[1] = 0;
+	data[2] = 0;
+	data[3] = 0;
 	i = 0;
-	while (i < ANTI_ALIASING_SAMPLES)
+	while (i < samples)
 	{
-		ray = camera_ray_aa(scene->camera, x + ((float)rand() \
-/ (float)RAND_MAX), y + ((float)rand() / (float)RAND_MAX), viewport);
-		final_color = trace_ray(ray, scene);
-		rgb[0] += final_color.r;
-		rgb[1] += final_color.g;
-		rgb[2] += final_color.b;
+		accumulate_sample(&params, i, samples, data);
 		i++;
 	}
-	final_color.r = (int)(rgb[0] / ANTI_ALIASING_SAMPLES);
-	final_color.g = (int)(rgb[1] / ANTI_ALIASING_SAMPLES);
-	final_color.b = (int)(rgb[2] / ANTI_ALIASING_SAMPLES);
+	final_color.r = (int)(data[0] / data[3]);
+	final_color.g = (int)(data[1] / data[3]);
+	final_color.b = (int)(data[2] / data[3]);
 	final_color.checker = false;
 	return (final_color);
 }

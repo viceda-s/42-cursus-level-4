@@ -6,7 +6,7 @@
 #    By: viceda-s <viceda-s@student.42luxembourg    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/13 12:34:14 by viceda-s          #+#    #+#              #
-#    Updated: 2025/10/31 15:07:47 by viceda-s         ###   ########.fr        #
+#    Updated: 2025/11/06 11:58:32 by viceda-s         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,28 +26,49 @@ MLX = $(MLX_DIR)/libmlx.a
 
 # Source files
 SRCS = $(SRC_DIR)/main_bonus.c \
+       $(SRC_DIR)/core/main_utils_bonus.c \
+       $(SRC_DIR)/core/cleanup_bonus.c \
        $(SRC_DIR)/core/event_bonus.c \
        $(SRC_DIR)/core/keys_bonus.c \
        $(SRC_DIR)/core/camera_control_bonus.c \
+       $(SRC_DIR)/core/light_control_bonus.c \
+       $(SRC_DIR)/core/object_selection_bonus.c \
+       $(SRC_DIR)/core/object_control_bonus.c \
+       $(SRC_DIR)/core/threading_bonus.c \
+       $(SRC_DIR)/core/free_bonus.c \
        $(SRC_DIR)/parsing/parsing_bonus.c \
        $(SRC_DIR)/parsing/parse_helper_bonus.c \
+       $(SRC_DIR)/parsing/parse_texture_bonus.c \
        $(SRC_DIR)/parsing/parse_utils_bonus.c \
        $(SRC_DIR)/parsing/load_scene_bonus.c \
-       $(SRC_DIR)/parsing/xyz_extraction_bonus.c \
+       $(SRC_DIR)/parsing/load_scene_utils_bonus.c \
+       $(SRC_DIR)/objects/cube_bonus.c \
        $(SRC_DIR)/objects/object_bonus.c \
        $(SRC_DIR)/objects/sphere_bonus.c \
        $(SRC_DIR)/objects/cylinder_bonus.c \
        $(SRC_DIR)/objects/plane_bonus.c \
+       $(SRC_DIR)/objects/parse_maps_bonus.c \
+       $(SRC_DIR)/objects/transform_bonus.c \
        $(SRC_DIR)/math/vector/vector_ops_bonus.c \
        $(SRC_DIR)/math/vector/vector_geo_bonus.c \
        $(SRC_DIR)/math/ray/ray_ops_bonus.c \
        $(SRC_DIR)/math/render/render_aa_bonus.c \
+       $(SRC_DIR)/math/render/render_aa_utils_bonus.c \
        $(SRC_DIR)/math/render/render_checker_bonus.c \
+       $(SRC_DIR)/math/render/checker_uv_bonus.c \
+       $(SRC_DIR)/math/render/uv_mapping_bonus.c \
        $(SRC_DIR)/math/render/render_phong_bonus.c \
        $(SRC_DIR)/math/render/render_scene_bonus.c \
        $(SRC_DIR)/math/render/render_utils_bonus.c \
+       $(SRC_DIR)/math/render/texture_bonus.c \
+       $(SRC_DIR)/math/render/texture_utils_bonus.c \
+       $(SRC_DIR)/math/render/bump_utils_bonus.c \
+       $(SRC_DIR)/math/render/bump_apply_bonus.c \
+       $(SRC_DIR)/math/render/bump_objects_bonus.c \
+       $(SRC_DIR)/math/render/normal_utils_bonus.c \
        $(SRC_DIR)/math/intersect/intersect_bonus.c \
        $(SRC_DIR)/math/intersect/intersect_check_bonus.c \
+       $(SRC_DIR)/math/intersect/intersect_cube_bonus.c \
        $(SRC_DIR)/math/intersect/intersect_utils_bonus.c
 
 # Object files
@@ -55,7 +76,7 @@ OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
 
 # Compiler and flags
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g3 -fPIC
+CFLAGS = -Wall -Wextra -Werror -g3 -fPIC -pthread
 INCLUDES = -I$(INC_DIR) -I$(LIBFT_DIR)/include -I$(MLX_DIR)
 LIBS = -L$(LIBFT_DIR) -lft -L$(MLX_DIR) -lmlx -lX11 -lXext -lm
 

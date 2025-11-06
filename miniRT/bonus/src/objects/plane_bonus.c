@@ -6,11 +6,11 @@
 /*   By: viceda-s <viceda-s@student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 12:22:48 by rbaldin           #+#    #+#             */
-/*   Updated: 2025/10/31 15:14:30 by viceda-s         ###   ########.fr       */
+/*   Updated: 2025/11/06 11:57:27 by viceda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/minirt_bonus.h"
+#include "minirt_bonus.h"
 
 static t_gd	*extracting_xyz_pl(t_scene *scene_coord, char **nums)
 {
@@ -22,18 +22,7 @@ static t_gd	*extracting_xyz_pl(t_scene *scene_coord, char **nums)
 		return (NULL);
 	tmp = parse_vector(nums);
 	pl->v = tmp;
-	// pl->v.x = ft_atof_dp(nums);
-	// skip_comma(nums);
-	// pl->v.y = ft_atof_dp(nums);
-	// skip_comma(nums);
-	// pl->v.z = ft_atof_dp(nums);
-	// skipping_emptiness(nums);
 	tmp = parse_vector(nums);
-	// pl->nov.x = ft_atof_dp(nums);
-	// skip_comma(nums);
-	// pl->nov.y = ft_atof_dp(nums);
-	// skip_comma(nums);
-	// pl->nov.z = ft_atof_dp(nums);
 	pl->nov = vector_normalize(tmp);
 	return (pl);
 }
@@ -52,17 +41,12 @@ int	parsing_plane(t_scene *scene_plane, char *line_data_plane)
 pla->nov.x > 1.0 || pla->nov.y < -1.0 || pla->nov.y > 1.0)
 		return (1);
 	skipping_emptiness(&ptr_pl);
-	// parse_color(pla, ptr_pl);
-	pla->r = ft_atoi_dp(&ptr_pl);
-	skip_comma(&ptr_pl);
-	pla->g = ft_atoi_dp(&ptr_pl);
-	skip_comma(&ptr_pl);
-	pla->b = ft_atoi_dp(&ptr_pl);
-	if (pla->r < 0 || pla->r > 255 || pla->b < 0 || pla->b > 255 || \
-pla->g < 0 || pla->g > 255)
+	if (parse_color(&ptr_pl, pla))
 		return (1);
-	parse_checker_plane(&ptr_pl, pla);
-	parse_bump_plane(&ptr_pl, pla);
+	parse_texture_map(&ptr_pl, &pla->texture);
+	parse_bump_map(&ptr_pl, &pla->bump_map);
+	parse_checker(&ptr_pl, &pla->checker);
+	parse_bump(&ptr_pl, &pla->has_bump, &pla->bump_strength, &pla->bump_uv);
 	skipping_emptiness(&ptr_pl);
 	if (*ptr_pl != '\0')
 		return (1);

@@ -1,0 +1,56 @@
+# Checkerboard Pattern Gallery
+# Showcases different checkerboard applications
+
+A 0.25 255,255,255
+
+C 0,10,30 0,-0.2,-1 65
+
+L 0,25,20 0.8 255,255,255
+L -20,15,-10 0.4 200,220,255
+
+# === ROW 1: SPHERES ===
+
+# Red checkerboard sphere
+sp -15,5,0 4 200,50,50 ck
+
+# Green checkerboard sphere
+sp -5,5,0 4 50,200,50 ck
+
+# Blue checkerboard sphere
+sp 5,5,0 4 50,50,200 ck
+
+# Yellow checkerboard sphere
+sp 15,5,0 4 200,200,50 ck
+
+# === ROW 2: CYLINDERS ===
+
+# Cyan checkerboard cylinder
+cy -15,0,-8 0,1,0 3 8 50,200,200 ck
+
+# Magenta checkerboard cylinder
+cy -5,0,-8 0,1,0 3 8 200,50,200 ck
+
+# Orange checkerboard cylinder
+cy 5,0,-8 0,1,0 3 8 255,150,50 ck
+
+# Purple checkerboard cylinder
+cy 15,0,-8 0,1,0 3 8 150,50,255 ck
+
+# === ROW 3: CUBES ===
+
+# White/Gray checkerboard cube
+cu -10,-2,-15 4 180,180,180 ck
+
+# Warm checkerboard cube
+cu 0,-2,-15 4 255,180,120 ck
+
+# Cool checkerboard cube
+cu 10,-2,-15 4 120,180,255 ck
+
+# === PLANES ===
+
+# Main floor - classic checkerboard
+pl 0,-6,0 0,1,0 200,200,200 ck
+
+# Back wall - subtle checkerboard
+pl 0,0,-25 0,0,1 150,150,180 ck

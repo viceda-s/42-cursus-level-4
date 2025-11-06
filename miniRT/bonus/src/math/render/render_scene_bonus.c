@@ -6,44 +6,43 @@
 /*   By: viceda-s <viceda-s@student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 08:11:31 by viceda-s          #+#    #+#             */
-/*   Updated: 2025/10/30 09:03:11 by viceda-s         ###   ########.fr       */
+/*   Updated: 2025/11/03 15:55:26 by viceda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt_bonus.h"
 
-/**
- * @brief Renders the entire scene by tracing rays through each pixel.
- *
- * This function iterates through every pixel in the window, generates a camera
- * ray for each pixel, traces that ray through the scene to determine the 
- * color, and puts the resulting color to the pixel on screen. 
- * The viewport is calculated based on the window dimensions and aspect ratio.
- *
- * @param scene The scene containing all objects, camera,
- *        and lighting information.
- * @param data The miniRT data structure containing the MLX image buffer.
- */
+static void	init_thread(t_thread_data *td, t_minirt *data, int i, int slice_h)
+{
+	td[i].id = i;
+	td[i].data = data;
+	td[i].start_y = i * slice_h;
+	if (i == NUM_THREADS - 1)
+		td[i].end_y = data->win_height;
+	else
+		td[i].end_y = (i + 1) * slice_h;
+}
+
 void	render_scene(t_scene *scene, t_minirt *data)
 {
-	int			x;
-	int			y;
-	t_gd		color;
-	t_viewport	viewport;
+	pthread_t		threads[NUM_THREADS];
+	t_thread_data	thread_data[NUM_THREADS];
+	int				i;
+	int				slice_height;
 
-	viewport.width = WINDOW_WIDTH;
-	viewport.height = WINDOW_HEIGHT;
-	viewport.aspect_ratio = (float)WINDOW_WIDTH / (float)WINDOW_HEIGHT;
-	y = 0;
-	while (y < WINDOW_HEIGHT)
+	(void)scene;
+	slice_height = data->win_height / NUM_THREADS;
+	i = 0;
+	while (i < NUM_THREADS)
 	{
-		x = 0;
-		while (x < WINDOW_WIDTH)
-		{
-			color = get_pixel_color_with_aa(scene, x, y, viewport);
-			put_pixel(data, x, y, (color.r << 16) | (color.g << 8) | color.b);
-			x++;
-		}
-		y++;
+		init_thread(thread_data, data, i, slice_height);
+		pthread_create(&threads[i], NULL, render_slice, &thread_data[i]);
+		i++;
+	}
+	i = 0;
+	while (i < NUM_THREADS)
+	{
+		pthread_join(threads[i], NULL);
+		i++;
 	}
 }

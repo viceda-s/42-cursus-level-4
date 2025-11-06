@@ -12,7 +12,7 @@
 
 #include "minirt.h"
 
-int	init_minirt_basic(t_minirt *data)
+int	init_minirt(t_minirt *data)
 {
 	data->mlx = mlx_init();
 	if (!data->mlx)
@@ -89,7 +89,7 @@ int	main(int argc, char **argv)
 		printf("Error\nFailed to parse scene file\n");
 		return (1);
 	}
-	if (init_minirt_basic(&data) != 0)
+	if (init_minirt(&data) != 0)
 	{
 		printf("Error\nFailed to initialize miniRT\n");
 		cleanup_scene(scene);

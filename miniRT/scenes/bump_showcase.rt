@@ -1,53 +1,22 @@
-# Bump Mapping Showcase Scene
-# This scene demonstrates all bump mapping capabilities
-
 A 0.3 220,220,255
 C 0,8,30 0,-0.15,-1 70
 L -30,40,20 0.8 255,255,255
 
-# ===== ROW 1: Bump Strength Comparison =====
-# No bump
 sp -20,5,0 5 255,100,100
 
-# Light bump
 sp -10,5,0 5 255,100,100 bump=0.5
-
-# Medium bump
 sp 0,5,0 5 255,100,100 bump=1.5
-
-# Strong bump
 sp 10,5,0 5 255,100,100 bump=2.5
-
-# Very strong bump
 sp 20,5,0 5 255,100,100 bump=4.0
 
-
-# ===== ROW 2: UV Tiling Variations =====
-# Default tiling
 sp -15,0,-5 5 100,255,100 bump=1.5 buv=1.0,1.0
-
-# 2x tiling
 sp -5,0,-5 5 100,255,100 bump=1.5 buv=2.0,2.0
-
-# 4x tiling
 sp 5,0,-5 5 100,255,100 bump=1.5 buv=4.0,4.0
-
-# 8x tiling
 sp 15,0,-5 5 100,255,100 bump=1.5 buv=8.0,8.0
 
-
-# ===== ROW 3: Different Objects =====
-# Bumpy sphere
 sp -10,-5,-10 5 100,150,255 bump=2.0 buv=3.0,3.0
-
-# Bumpy plane section (large plane below all objects)
 pl 0,-12,0 0,1,0 180,180,180 bump=1.0 buv=0.8,0.8
-
-# Bumpy cylinder
 cy 10,-5,-10 0,1,0 4 10 255,200,100 bump=1.5 buv=3.0,2.0
 
-
-# ===== ADDITIONAL: Combining with Checker =====
-# Checker + Bump
 sp 0,-5,5 5 200,100,255 checker bump=1.5
 

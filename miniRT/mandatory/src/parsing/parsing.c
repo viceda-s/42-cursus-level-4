@@ -3,6 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+/*   By: viceda-s <viceda-s@student.42luxembourg.>  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/04 13:19:14 by viceda-s          #+#    #+#             */
+/*   Updated: 2025/11/04 13:43:55 by viceda-s         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
 /*   By: viceda-s <viceda-s@student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 00:00:00 by rbaldin           #+#    #+#             */
@@ -11,6 +23,7 @@
 /* ************************************************************************** */
 
 #include "minirt.h"
+#include "../../inc/minirt.h"
 
 int	parsing_ambient(t_scene *sc1, char *line_data1)
 {
@@ -23,12 +36,8 @@ int	parsing_ambient(t_scene *sc1, char *line_data1)
 	if (sc1->ambient.ratio < 0.0 || sc1->ambient.ratio > 1.0)
 		return (1);
 	skipping_emptiness(&ptr1);
-	sc1->ambient.colours.r = ft_atoi_dp(&ptr1);
-	skip_comma(&ptr1);
-	sc1->ambient.colours.g = ft_atoi_dp(&ptr1);
-	skip_comma(&ptr1);
-	sc1->ambient.colours.b = ft_atoi_dp(&ptr1);
-	skipping_emptiness(&ptr1);
+	if (parse_color(&ptr1, &sc1->ambient.colours))
+		return (1);
 	if (*ptr1 != '\0')
 		return (1);
 	return (0);
@@ -41,8 +50,8 @@ int	parsing_camera(t_scene *sc2, char *line_data2)
 
 	ptr2 = line_data2;
 	ptr2++;
-	extracting_xyz(sc2, &ptr2, 'c');
-	extracting_nov_cam(sc2, &ptr2);
+	sc2->camera.position = parse_vector(&ptr2);
+	sc2->camera.forward = parse_vector(&ptr2);
 	sc2->camera.forward = vector_normalize(sc2->camera.forward);
 	world_up = vector_create(0, 1, 0);
 	if (fabs(sc2->camera.forward.x) == 0 && fabs(sc2->camera.forward.z) == 0)
@@ -68,21 +77,14 @@ int	parsing_light(t_scene *sc3, char *line_data3)
 
 	ptr3 = line_data3;
 	ptr3++;
-	extracting_xyz(sc3, &ptr3, 'l');
+	sc3->light.position = parse_vector(&ptr3);
 	sc3->light.br = ft_atof_dp(&ptr3);
 	if (sc3->light.br < 0.0 || sc3->light.br > 1.0)
 		return (1);
 	skipping_emptiness(&ptr3);
-	sc3->light.coord.r = ft_atoi_dp(&ptr3);
-	skip_comma(&ptr3);
-	sc3->light.coord.g = ft_atoi_dp(&ptr3);
-	skip_comma(&ptr3);
-	sc3->light.coord.b = ft_atoi_dp(&ptr3);
-	if (sc3->light.coord.r < 0 || sc3->light.coord.r > 255
-		|| sc3->light.coord.g < 0 || sc3->light.coord.g > 255
-		|| sc3->light.coord.b < 0 || sc3->light.coord.b > 255)
-		return (1);
-	skipping_emptiness(&ptr3);
+	sc3->light.coord.r = 255;
+	sc3->light.coord.g = 255;
+	sc3->light.coord.b = 255;
 	if (*ptr3 != '\0')
 		return (1);
 	return (0);

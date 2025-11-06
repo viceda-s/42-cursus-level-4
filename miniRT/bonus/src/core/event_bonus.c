@@ -16,7 +16,11 @@ void	exit_program(t_minirt *data)
 {
 	if (data)
 	{
-		cleanup_scene(data->scene);
+		if (data->scene)
+		{
+			cleanup_scene_textures(data->mlx, data->scene);
+			cleanup_scene(data->scene);
+		}
 		if (data->img)
 			mlx_destroy_image(data->mlx, data->img);
 		if (data->win)

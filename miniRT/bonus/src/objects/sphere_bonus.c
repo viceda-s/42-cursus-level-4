@@ -3,26 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   sphere_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: viceda-s <viceda-s@student.42luxembourg.>  +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/31 20:06:22 by viceda-s          #+#    #+#             */
-/*   Updated: 2025/10/31 20:06:26 by viceda-s         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   sphere_bonus.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
 /*   By: viceda-s <viceda-s@student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 12:26:24 by rbaldin           #+#    #+#             */
-/*   Updated: 2025/10/31 15:15:39 by viceda-s         ###   ########.fr       */
+/*   Updated: 2025/11/06 11:57:25 by viceda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/minirt_bonus.h"
+#include "minirt_bonus.h"
 
 static t_sp	*extracting_xyz_sph(t_scene *scene_coord, char **nums)
 {
@@ -34,11 +22,6 @@ static t_sp	*extracting_xyz_sph(t_scene *scene_coord, char **nums)
 		return (NULL);
 	tmp = parse_vector(nums);
 	sp->coord_colours.v = tmp;
-	// sp->coord_colours.v.x = ft_atof_dp(nums);
-	// skip_comma(nums);
-	// sp->coord_colours.v.y = ft_atof_dp(nums);
-	// skip_comma(nums);
-	// sp->coord_colours.v.z = ft_atof_dp(nums);
 	return (sp);
 }
 
@@ -53,18 +36,15 @@ int	parsing_sphere(t_scene *scene_sphere, char *line_data_sphere)
 	if (!sphe)
 		return (1);
 	sphe->d = ft_atof_dp(&ptr_sp);
-	sphe->coord_colours.r = ft_atoi_dp(&ptr_sp);
-	skip_comma(&ptr_sp);
-	sphe->coord_colours.g = ft_atoi_dp(&ptr_sp);
-	skip_comma(&ptr_sp);
-	sphe->coord_colours.b = ft_atoi_dp(&ptr_sp);
-	if (sphe->d <= 0.0 || sphe->coord_colours.r < 0 || \
-sphe->coord_colours.r > 255 || sphe->coord_colours.g < 0 || \
-sphe->coord_colours.g > 255 || sphe->coord_colours.b < 0 || \
-sphe->coord_colours.b > 255)
+	if (parse_color(&ptr_sp, &sphe->coord_colours))
 		return (1);
-	parse_checker_sphere(&ptr_sp, sphe);
-	parse_bump_sphere(&ptr_sp, sphe);
+	if (sphe->d <= 0.0)
+		return (1);
+	parse_texture_map(&ptr_sp, &sphe->texture);
+	parse_bump_map(&ptr_sp, &sphe->bump_map);
+	parse_checker(&ptr_sp, &sphe->coord_colours.checker);
+	parse_bump(&ptr_sp, &sphe->coord_colours.has_bump,
+		&sphe->coord_colours.bump_strength, &sphe->coord_colours.bump_uv);
 	skipping_emptiness(&ptr_sp);
 	if (*ptr_sp != '\0')
 		return (1);

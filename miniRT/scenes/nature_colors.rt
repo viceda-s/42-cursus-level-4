@@ -1,0 +1,25 @@
+# Cena verde natureza - Esquema verde/marrom/bege
+A 0.3 240,250,245
+C 0,5,25 0,-0.1,-1 70
+L -20,30,15 0.7 255,255,250
+
+# Plano base - verde musgo claro
+pl 0,-10,0 0,1,0 200,215,190 bump=0.8 buv=0.8,0.8
+
+# Plano fundo - verde suave
+pl 0,0,-30 0,0,1 190,220,200
+
+# Esfera grande - verde floresta
+sp 10,0,0 8 80,140,90 bump=1.5 buv=2.0,2.0
+
+# Esfera média - verde claro
+sp -5,2,5 5 130,180,140 bump=1.2 buv=2.5,2.5
+
+# Esfera pequena - bege natural
+sp -10,-2,-2 3 220,210,195 bump=1.0 buv=3.0,3.0
+
+# Cilindro - marrom madeira
+cy 0,-5,8 0,1,0.2 3 12 120,90,70 bump=1.3 buv=2.0,1.5
+
+# Cilindro pequeno - verde oliva
+cy -12,0,0 0.2,1,0 2 8 160,170,130 bump=1.0 buv=2.0,2.0

@@ -33,7 +33,7 @@ static bool	is_in_shadow(t_vector hit_point, t_vector normal, t_scene *scene)
 	float			light_distance;
 
 	shadow_ray.origin = vector_add(hit_point, vector_scale(normal, 1e-4f));
-	shadow_ray.direction = vector_sub(scene->light.coord.v, shadow_ray.origin);
+	shadow_ray.direction = vector_sub(scene->light.position, shadow_ray.origin);
 	light_distance = vector_length(shadow_ray.direction);
 	shadow_ray.direction = vector_normalize(shadow_ray.direction);
 	t = find_closest_intersection(shadow_ray, scene, &shadow_hit_obj,
@@ -112,7 +112,7 @@ t_gd	calculate_lighting(t_vector hit_point, t_vector normal,
 	params.material_color = material_color;
 	params.scene = scene;
 	params.normal = normal;
-	params.light_dir = vector_normalize(vector_sub(scene->light.coord.v,
+	params.light_dir = vector_normalize(vector_sub(scene->light.position,
 				hit_point));
 	if (!is_in_shadow(hit_point, normal, scene))
 		final_color = apply_diffuse_light(final_color, &params);

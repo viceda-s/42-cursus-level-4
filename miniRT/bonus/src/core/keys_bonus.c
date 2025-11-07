@@ -12,13 +12,13 @@
 
 #include "minirt_bonus.h"
 
-void	render_keys(t_minirt *data, int needs_render)
+static void	toggle_help(t_minirt *data)
 {
-	if (needs_render)
-	{
-		render_scene(data->scene, data);
-		mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
-	}
+	data->show_help = !data->show_help;
+	if (data->show_help)
+		ft_printf("Help overlay: ON\n");
+	else
+		ft_printf("Help overlay: OFF\n");
 }
 
 int	keypress_handler3(int key, t_minirt *data, int needs_render)
@@ -54,7 +54,7 @@ int	keypress_handler2(int key, t_minirt *data, int needs_render)
 		moving_camera(&data->scene->camera, MOVE_SPEED, 'r');
 		needs_render = 1;
 	}
-	else if (key == KEY_Q)
+	else if (key == KEY_Z)
 	{
 		moving_camera(&data->scene->camera, MOVE_SPEED, 'u');
 		needs_render = 1;
@@ -75,6 +75,19 @@ int	keypress_handler2(int key, t_minirt *data, int needs_render)
 	return (0);
 }
 
+static int	handle_movement_keys(int key, t_minirt *data)
+{
+	if (key == KEY_W)
+		moving_camera(&data->scene->camera, MOVE_SPEED, 'f');
+	else if (key == KEY_S)
+		moving_camera(&data->scene->camera, -MOVE_SPEED, 'f');
+	else if (key == KEY_A)
+		moving_camera(&data->scene->camera, MOVE_SPEED, 'l');
+	else
+		return (0);
+	return (1);
+}
+
 int	keypress_handler(int key, t_minirt *data)
 {
 	int	needs_render;
@@ -82,21 +95,22 @@ int	keypress_handler(int key, t_minirt *data)
 	needs_render = 0;
 	if (key == ESC_KEY)
 		exit_program(data);
-	if (key == KEY_W)
+	if (key == KEY_F)
 	{
-		moving_camera(&data->scene->camera, MOVE_SPEED, 'f');
+		data->fast_render = !data->fast_render;
+		if (data->fast_render)
+			ft_printf("Fast render (AA off): ON\n");
+		else
+			ft_printf("Fast render (AA off): OFF\n");
 		needs_render = 1;
 	}
-	else if (key == KEY_S)
+	else if (key == KEY_H)
 	{
-		moving_camera(&data->scene->camera, -MOVE_SPEED, 'f');
+		toggle_help(data);
 		needs_render = 1;
 	}
-	else if (key == KEY_A)
-	{
-		moving_camera(&data->scene->camera, MOVE_SPEED, 'l');
+	else if (handle_movement_keys(key, data))
 		needs_render = 1;
-	}
 	else
 		return (keypress_handler2(key, data, needs_render));
 	render_keys(data, needs_render);

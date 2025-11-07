@@ -46,7 +46,9 @@ static int	setup_render(t_minirt *data, t_scene *scene)
 		return (1);
 	}
 	data->scene = scene;
-	data->fast_render = false;
+	data->fast_render = true;
+	data->show_help = false;
+	ft_printf("Fast render mode: ON (Press 'F' to toggle AA)\n");
 	load_scene_textures(data->mlx, scene);
 	init_selection(data->scene);
 	init_event(data);
@@ -69,5 +71,6 @@ int	main(int argc, char **argv)
 		return (1);
 	render_scene(scene, &data);
 	mlx_put_image_to_window(data.mlx, data.win, data.img, 0, 0);
+	render_help_overlay(&data);
 	mlx_loop(data.mlx);
 }

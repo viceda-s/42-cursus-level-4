@@ -6,7 +6,7 @@
 #    By: viceda-s <viceda-s@student.42luxembourg    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/13 12:34:14 by viceda-s          #+#    #+#              #
-#    Updated: 2025/11/06 11:58:32 by viceda-s         ###   ########.fr        #
+#    Updated: 2025/11/06 13:58:40 by viceda-s         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,13 +36,16 @@ SRCS = $(SRC_DIR)/main_bonus.c \
        $(SRC_DIR)/core/object_control_bonus.c \
        $(SRC_DIR)/core/threading_bonus.c \
        $(SRC_DIR)/core/free_bonus.c \
+       $(SRC_DIR)/core/help_overlay_bonus.c \
        $(SRC_DIR)/parsing/parsing_bonus.c \
        $(SRC_DIR)/parsing/parse_helper_bonus.c \
        $(SRC_DIR)/parsing/parse_texture_bonus.c \
+       $(SRC_DIR)/parsing/parse_texture_utils_bonus.c \
        $(SRC_DIR)/parsing/parse_utils_bonus.c \
        $(SRC_DIR)/parsing/load_scene_bonus.c \
        $(SRC_DIR)/parsing/load_scene_utils_bonus.c \
        $(SRC_DIR)/objects/cube_bonus.c \
+       $(SRC_DIR)/objects/cube_utils_bonus.c \
        $(SRC_DIR)/objects/object_bonus.c \
        $(SRC_DIR)/objects/sphere_bonus.c \
        $(SRC_DIR)/objects/cylinder_bonus.c \
@@ -58,6 +61,8 @@ SRCS = $(SRC_DIR)/main_bonus.c \
        $(SRC_DIR)/math/render/checker_uv_bonus.c \
        $(SRC_DIR)/math/render/uv_mapping_bonus.c \
        $(SRC_DIR)/math/render/render_phong_bonus.c \
+       $(SRC_DIR)/math/render/phong_lighting_bonus.c \
+       $(SRC_DIR)/math/render/phong_material_bonus.c \
        $(SRC_DIR)/math/render/render_scene_bonus.c \
        $(SRC_DIR)/math/render/render_utils_bonus.c \
        $(SRC_DIR)/math/render/texture_bonus.c \

@@ -39,7 +39,7 @@ static void	handle_translation(int key, t_objects *obj)
 		offset.y = -1.0f;
 	else if (key == KEY_PAD_9)
 		offset.z = 1.0f;
-	else if (key == KEY_PAD_7)
+	else if (key == KEY_PAD_1)
 		offset.z = -1.0f;
 	if (offset.x != 0 || offset.y != 0 || offset.z != 0)
 		translate_object(obj->object_data, obj->type, offset);
@@ -72,7 +72,13 @@ int	keypress_handler_objects(int key, t_minirt *data)
 	if (key == KEY_TAB)
 	{
 		select_next_object(data->scene);
-		printf("Selected object changed.\n");
+		if (data->scene->selected_object)
+		{
+			ft_printf("Selected object: type=%d\n",
+				data->scene->selected_object->type);
+		}
+		else
+			ft_printf("No object selected!\n");
 		needs_render = 1;
 	}
 	if (data->scene->selected_object)

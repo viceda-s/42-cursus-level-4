@@ -12,6 +12,16 @@
 
 #include "minirt_bonus.h"
 
+void	render_keys(t_minirt *data, int needs_render)
+{
+	if (needs_render)
+	{
+		render_scene(data->scene, data);
+		mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
+		render_help_overlay(data);
+	}
+}
+
 void	exit_program(t_minirt *data)
 {
 	if (data)

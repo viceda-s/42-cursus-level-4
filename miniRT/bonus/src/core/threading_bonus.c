@@ -16,12 +16,21 @@ static void	render_row(t_minirt *data, t_viewport viewport, int y)
 {
 	t_gd	color;
 	int		x;
+	t_ray	ray;
 
 	x = 0;
 	while (x < viewport.width)
 	{
-		color = get_pixel_color_aa_quality((t_aa_params){data->scene,
-				x, y, viewport}, ANTI_ALIASING_SAMPLES);
+		if (data->fast_render)
+		{
+			ray = camera_ray(data->scene->camera, x, y, viewport);
+			color = trace_ray(ray, data->scene);
+		}
+		else
+		{
+			color = get_pixel_color_aa_quality((t_aa_params){data->scene,
+					x, y, viewport}, ANTI_ALIASING_SAMPLES);
+		}
 		put_pixel(data, x, y, color_to_int(color));
 		x++;
 	}

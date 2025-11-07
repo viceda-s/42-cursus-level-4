@@ -6,7 +6,7 @@
 /*   By: viceda-s <viceda-s@student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 16:30:15 by viceda-s          #+#    #+#             */
-/*   Updated: 2025/11/06 13:00:49 by viceda-s         ###   ########.fr       */
+/*   Updated: 2025/11/06 14:01:19 by viceda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@
 # define KEY_D 100
 # define KEY_Q 113
 # define KEY_E 101
+# define KEY_Z 122
 
 /* Arrow keys */
 # define KEY_UP 65362
@@ -53,23 +54,30 @@
 
 /* Object control keys (Numpad) */
 # define KEY_TAB 65289
+# define KEY_PAD_1 65436
 # define KEY_PAD_2 65433
 # define KEY_PAD_4 65430
 # define KEY_PAD_6 65432
 # define KEY_PAD_8 65431
-# define KEY_PAD_7 65429
 # define KEY_PAD_9 65434
 # define KEY_PAD_UP 65431 // Same as 8
 # define KEY_PAD_DOWN 65433 // Same as 2
 # define KEY_PAD_LEFT 65430 // Same as 4
 # define KEY_PAD_RIGHT 65432 // Same as 6
+# define KEY_PAD_UP 65431 // Same as 8
+# define KEY_PAD_DOWN 65433 // Same as 2
+# define KEY_PAD_LEFT 65430 // Same as 4
+# define KEY_PAD_RIGHT 65432 // Same as 6
+
+/* Render control keys */
+# define KEY_F 102
+# define KEY_H 104
 
 /* speeds / constants */
 # define MOVE_SPEED 5.0f
 # define ROTATE_SPEED 0.1f
 # define SHININESS 16.0f
 # define ANTI_ALIASING_SAMPLES 9
-# define AA_HIGH_QUALITY 16
 # define NUM_THREADS 8
 
 /* ------------------------
@@ -300,6 +308,7 @@ typedef struct s_minirt
 	int			win_height;
 	int			win_width;
 	t_scene		*scene;
+	bool		show_help;
 	bool		fast_render;
 }				t_minirt;
 
@@ -336,6 +345,7 @@ void		*render_slice(void *arg);
 void		exit_program(t_minirt *data);
 int			close_window(t_minirt *data);
 void		init_event(t_minirt *data);
+void		render_keys(t_minirt *data, int needs_render);
 
 /* keys.c */
 int			keypress_handler(int key, t_minirt *data);
@@ -410,6 +420,7 @@ int			parsing_cube(t_scene *scene_cube, char *line_data_cube);
 
 /* rendering */
 void		render_scene(t_scene *scene, t_minirt *data);
+void		render_help_overlay(t_minirt *data);
 t_gd		trace_ray(t_ray ray, t_scene *scene);
 int			color_to_int(t_gd color);
 t_gd		get_pixel_color_with_aa(t_scene *scene, int x, int y,
@@ -425,6 +436,7 @@ void		map_cube_uv(t_vector p, t_cu *cube, float *u, float *v);
 /* ray ops */
 t_ray		create_ray(t_vector origin, t_vector direction);
 t_vector	ray_at(t_ray ray, float t);
+t_ray		camera_ray(t_camera camera, int x, int y, t_viewport viewport);
 t_ray		camera_ray(t_camera camera, int x, int y, t_viewport viewport);
 
 /* vector ops */
@@ -460,6 +472,14 @@ float		find_closest_intersection(t_ray ray,
 /* lighting */
 t_gd		calculate_lighting(t_shade *s);
 t_gd		apply_checkerboard(t_shade *s, float scale);
+t_gd		apply_ambient_light(t_gd material_color, t_al ambient);
+t_gd		apply_diffuse_light(t_gd color, t_l *light_data, t_l *params,
+				float shadow_factor);
+t_gd		apply_specular_light(t_gd colour, t_l *light_data, t_l *l_params,
+				float shadow_factor);
+t_gd		get_material_color_textured(t_shade *s);
+float		compute_shadow_factor(t_vector hit_point, t_vector normal,
+				t_scene *scene, t_l *current_light);
 
 /* bump mapping */
 void		build_tbn_from_normal(t_vector n, t_vector *t, t_vector *b);

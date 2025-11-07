@@ -62,13 +62,13 @@ t_ray	camera_ray(t_camera camera, int x, int y, t_viewport viewport)
 	v = (float)y / (float)(viewport.height - 1);
 	theta = camera.fov * acos(-1.0f) / 180.0f;
 	h = tanf(theta / 2.0f);
-	viewport.height = 2.0f * h;
-	viewport.width = viewport.aspect_ratio * viewport.height;
+	h = 2.0f * h;
+	theta = viewport.aspect_ratio * h;
 	ray_direction = camera.forward;
 	ray_direction = vector_add(ray_direction,
-			vector_scale(camera.right, (u - 0.5f) * viewport.width));
+			vector_scale(camera.right, (u - 0.5f) * theta));
 	ray_direction = vector_add(ray_direction,
-			vector_scale(camera.up, (0.5f - v) * viewport.height));
+			vector_scale(camera.up, (0.5f - v) * h));
 	ray_direction = vector_normalize(ray_direction);
 	return (create_ray(camera.position, ray_direction));
 }

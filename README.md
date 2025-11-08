@@ -7,7 +7,7 @@ Welcome to my repository showcasing my progress in **Milestone 4** at 42 School.
 | Project                         | Final Score    | Notable Features                           |
 | :--                              | :--:           | :--                                         |
 | CPP Modules 00-04                | 🟠 In progress | C++ Modules (Fundamentals, Classes, Inheritance, Polymorphism) |
-| miniRT                           | 🟠 In progress | Ray tracing, Vector manipulation, Realistic physical lighting |
+| miniRT                           | 🌟 125/100 | Ray tracing, Vector manipulation, Realistic physical lighting |
 | NetPractice                      | ✅ 100/100 | Practical challenges with networks and sockets |
 
 ## 🔎 Project Details
@@ -25,31 +25,29 @@ Welcome to my repository showcasing my progress in **Milestone 4** at 42 School.
 
 #### Module Details:
 
-1. **CPP00 – Introduction to C++**  
-    - **Objective:** Introduction to C++, including the use of classes, objects, and basic operators.  
+1. **CPP00 – C++ Basics and Syntax**  
+    - **Objective:** Namespaces, classes, member functions, stdio streams, initialization lists, static, const, and some other basic stuff.  
     - **Score: 100/100** ✅
-2. **CPP01 – Classes and Objects**  
-    - **Objective:** Basic concepts of classes, objects, member functions, constructors, and destructors.  
+2. **CPP01 – Memory and References**  
+    - **Objective:** Memory allocation, pointers to members, references and switch statements.  
     - **Score: 100/100** ✅
-3. **CPP02 – Encapsulation and Inheritance**  
-    - **Objective:** Apply concepts of encapsulation and inheritance, including base and derived classes.  
+3. **CPP02 – Operator Overloading and Canonical Form**  
+    - **Objective:** Ad-hoc polymorphism, operator overloading and the Orthodox Canonical class form.  
     - **Status:** 🟠 In progress.
-4. **CPP03 – Polymorphism**  
-    - **Objective:** Implement polymorphism, operator overloading, and virtual functions.  
+4. **CPP03 – Inheritance**  
+    - **Objective:** Inheritance.  
     - **Status:** 🟠 In progress.
-5. **CPP04 – Exception Handling and Templates**  
-    - **Objective:** Learn how to use exceptions and templates to make code more generic and robust.  
+5. **CPP04 – Abstract Classes and Interfaces**  
+    - **Objective:** Subtype Polymorphism, Abstract Classes, and Interfaces. 
     - **Status:** 🟠 In progress.
 
 ---
 
-### 🖼️ miniRT – In progress 🟠
+### 🖼️ miniRT – 125/100 🌟
 
 - **Objective:** Develop a simple 3D rendering engine using ray tracing to generate realistic scenes with support for lights, shadows, and basic reflections.
-- **Current Status:**  
-    - Development is in the early stages. Currently, I am focusing on implementing basic objects  (spheres, planes, and cones).
 - **Challenges Faced:**
-    - The main difficulty has been optimizing the rendering of complex scenes, particularly in how lights interact with objects. Calculating shadows, reflections, and refractions has proven especially challenging in terms of both performance and accuracy.
+    - The main difficulty was optimizing the rendering of complex scenes, particularly in how lights interact with objects. Calculating shadows, reflections, and refractions has proven especially challenging in terms of both performance and accuracy.
     - Maintaining performance with the implementation of multiple rays to simulate realistic lighting in real-time without sacrificing rendering quality.
 - **Skills Developed:**  
     - Ray tracing, vector manipulation, 3D math, realistic physical lighting, implementing reflections and refractions, as well as real-time rendering optimizations.
@@ -92,7 +90,7 @@ Each project is in its own directory, containing the full source code, as well a
 ## 🚀 How to Explore
 
 1. Clone this repository:
-`git clone https://github.com/YOUR_USERNAME/milestone4-42.git`
+`git clone https://github.com/viceda-s/42-cursus-level-4.git`
 2. Check the README in each project folder for details on progress, challenges, and explanations of problem-solving.
 
 **Feel free to contact me if you have any questions, would like to collaborate, review code, or discuss any of the projects!**

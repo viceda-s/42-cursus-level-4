@@ -1,0 +1,22 @@
+//
+// Created by viceda-s on 02/11/2025.
+//
+
+#ifndef CPP03_FRAGTRAP_HPP
+# define CPP03_FRAGTRAP_HPP
+
+# include "ClapTrap.hpp"
+
+class FragTrap : public ClapTrap {
+
+public:
+    FragTrap();
+    FragTrap(std::string name);
+    FragTrap(const FragTrap& other);
+    FragTrap& operator=(const FragTrap& other);
+    ~FragTrap();
+
+    void highFivesGuys(void);
+};
+
+#endif //CPP03_FRAGTRAP_HPP

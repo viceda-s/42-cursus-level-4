@@ -17,4 +17,6 @@ add_executable(CPP04
         ex00/WrongAnimal.hpp
         ex00/WrongCat.cpp
         ex00/WrongCat.hpp
-        ex01/main.cpp)
+        ex01/main.cpp
+        ex01/Brain.cpp
+        ex01/Brain.hpp)

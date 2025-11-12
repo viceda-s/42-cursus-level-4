@@ -2,7 +2,7 @@
 // Created by viceda-s on 08/11/2025.
 //
 
-#include "Animal.hpp"
+#include "AAnimal.hpp"
 #include "Dog.hpp"
 #include "Cat.hpp"
 #include "WrongAnimal.hpp"
@@ -10,9 +10,9 @@
 
 int main() {
 	std::cout << "=== Testing Animal, Dog, and Cat ===" << std::endl;
-	const Animal* meta = new Animal();
-	const Animal* j = new Dog();
-	const Animal* i = new Cat();
+	const AAnimal* meta = new AAnimal();
+	const AAnimal* j = new Dog();
+	const AAnimal* i = new Cat();
 
 	std::cout << "\nType of j: " << j->getType() << std::endl;
 	std::cout << "Type of i: " << i->getType() << std::endl;

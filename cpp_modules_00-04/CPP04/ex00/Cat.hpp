@@ -5,9 +5,9 @@
 #ifndef CPP04_CAT_HPP
 #define CPP04_CAT_HPP
 
-#include "Animal.hpp"
+#include "AAnimal.hpp"
 
-class Cat : public Animal {
+class Cat : public AAnimal {
 public:
 	Cat();
 	Cat(const Cat& other);

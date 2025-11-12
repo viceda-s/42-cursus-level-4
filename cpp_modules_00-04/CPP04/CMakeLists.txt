@@ -6,8 +6,8 @@ set(CMAKE_CXX_STANDARD 98)
 include_directories(ex00 ex01)
 
 add_executable(CPP04
-        ex00/Animal.cpp
-        ex00/Animal.hpp
+        ex00/AAnimal.cpp
+        ex00/AAnimal.hpp
         ex00/Cat.cpp
         ex00/Cat.hpp
         ex00/main.cpp

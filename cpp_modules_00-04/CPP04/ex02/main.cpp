@@ -48,6 +48,7 @@ int main() {
 
 		std::cout << "Original Cat idea: " << originalCat.getBrain()->ideas[0] << std::endl;
 		std::cout << "Assigned Cat idea: " << assignedCat.getBrain()->ideas[0] << std::endl;
+
 	}
 
 	std::cout << "\n=== Deleting all animals ===" << std::endl;

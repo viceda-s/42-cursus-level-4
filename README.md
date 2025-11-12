@@ -33,10 +33,10 @@ Welcome to my repository showcasing my progress in **Milestone 4** at 42 School.
     - **Score: 100/100** ✅
 3. **CPP02 – Operator Overloading and Canonical Form**  
     - **Objective:** Ad-hoc polymorphism, operator overloading and the Orthodox Canonical class form.  
-    - **Status:** 🟠 In progress.
+    - **Score: 100/100** ✅
 4. **CPP03 – Inheritance**  
     - **Objective:** Inheritance.  
-    - **Status:** 🟠 In progress.
+    - **Score: 100/100** ✅
 5. **CPP04 – Abstract Classes and Interfaces**  
     - **Objective:** Subtype Polymorphism, Abstract Classes, and Interfaces. 
     - **Status:** 🟠 In progress.

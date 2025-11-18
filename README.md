@@ -1,4 +1,4 @@
-# Milestone 4 – In Progress 🟠
+# Milestone 4 – Completed 🟢
 
 Welcome to my repository showcasing my progress in **Milestone 4** at 42 School. Below you'll find an overview of each project, the current status, and the challenges I'm facing as I continue to develop them.
 
@@ -12,7 +12,7 @@ Welcome to my repository showcasing my progress in **Milestone 4** at 42 School.
 
 ## 🔎 Project Details
 
-### 🖥️ CPP Modules 00-04 – 100/100 ✅�
+### 🖥️ CPP Modules 00-04 – 100/100 ✅
 
 - **Objective:** Implementation of the initial C++ modules at 42 School, covering everything from fundamentals to classes, inheritance, and polymorphism.
 - **Challenges Faced:**  

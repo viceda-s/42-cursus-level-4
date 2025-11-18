@@ -4,19 +4,17 @@ Welcome to my repository showcasing my progress in **Milestone 4** at 42 School.
 
 ## 🏅 My Scores
 
-| Project                         | Final Score    | Notable Features                           |
+| Project                          | Final Score    | Notable Features                           |
 | :--                              | :--:           | :--                                         |
-| CPP Modules 00-04                | 🟠 In progress | C++ Modules (Fundamentals, Classes, Inheritance, Polymorphism) |
+| CPP Modules 00-04                | ✅ 100/100 | C++ Modules (Fundamentals, Classes, Inheritance, Polymorphism) |
 | miniRT                           | 🌟 125/100 | Ray tracing, Vector manipulation, Realistic physical lighting |
 | NetPractice                      | ✅ 100/100 | Practical challenges with networks and sockets |
 
 ## 🔎 Project Details
 
-### 🖥️ CPP Modules 00-04 – In progress 🟠
+### 🖥️ CPP Modules 00-04 – 100/100 ✅�
 
 - **Objective:** Implementation of the initial C++ modules at 42 School, covering everything from fundamentals to classes, inheritance, and polymorphism.
-- **Current Status:**  
-    - Progress is going well, with **CPP00** and **CPP01** completed. I am currently working on **CPP02**, **CPP03**, and **CPP04**.
 - **Challenges Faced:**  
     - The transition from C to C++ and adapting to object-oriented programming required a review of previous concepts.  
     - Using pointers and managing memory in C++ remains a challenge, especially in modules involving dynamic memory allocation.
@@ -39,7 +37,7 @@ Welcome to my repository showcasing my progress in **Milestone 4** at 42 School.
     - **Score: 100/100** ✅
 5. **CPP04 – Abstract Classes and Interfaces**  
     - **Objective:** Subtype Polymorphism, Abstract Classes, and Interfaces. 
-    - **Status:** 🟠 In progress.
+    - **Score: 100/100** ✅
 
 ---
 

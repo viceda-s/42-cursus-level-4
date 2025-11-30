@@ -41,7 +41,7 @@ Welcome to my repository showcasing my progress in **Milestone 4** at 42 School.
 
 ---
 
-### 🖼️ miniRT – 125/100 🌟
+### 🖼️ miniRT (with @rbaldin) – 125/100 🌟
 
 - **Objective:** Develop a simple 3D rendering engine using ray tracing to generate realistic scenes with support for lights, shadows, and basic reflections.
 - **Challenges Faced:**

@@ -6,7 +6,7 @@
 #    By: viceda-s <viceda-s@student.42luxembourg    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/01 15:53:19 by viceda-s          #+#    #+#              #
-#    Updated: 2025/12/01 15:54:02 by viceda-s         ###   ########.fr        #
+#    Updated: 2025/12/02 12:41:07 by viceda-s         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,17 +28,17 @@ all:
 	@$(MAKE) -s -C $(SRC_DIR)
 
 bonus:
-	@$(MAKE) -s -C $(BONUS_DIR)
+	@if [ -f $(BONUS_DIR)/Makefile ]; then $(MAKE) -s -C $(BONUS_DIR); fi
 
 # Clean object files
 clean:
 	@$(MAKE) -s -C $(SRC_DIR) clean
-	@$(MAKE) -s -C $(BONUS_DIR) clean
+	@if [ -f $(BONUS_DIR)/Makefile ]; then $(MAKE) -s -C $(BONUS_DIR) clean; fi
 
 # Clean everything
 fclean: clean
 	@$(MAKE) -s -C $(SRC_DIR) fclean
-	@$(MAKE) -s -C $(BONUS_DIR) fclean
+	@if [ -f $(BONUS_DIR)/Makefile ]; then $(MAKE) -s -C $(BONUS_DIR) fclean; fi
 	@echo "All binaries cleaned."
 
 # Rebuild everything

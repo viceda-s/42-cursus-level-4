@@ -6,7 +6,7 @@
 /*   By: viceda-s <viceda-s@student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/01 18:10:01 by viceda-s          #+#    #+#             */
-/*   Updated: 2025/12/01 18:58:31 by viceda-s         ###   ########.fr       */
+/*   Updated: 2025/12/02 16:10:14 by viceda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ typedef enum e_error
 	ERR_MAP_EMPTY,
 	ERR_DUP_ELEMENT,
 	ERR_MISS_ELEMENT
-}   t_error;
+}	t_error;
 
 /* ========================== STRUCTURES ========================== */
 
@@ -110,60 +110,62 @@ typedef struct s_player
 typedef struct s_ray
 {
 	double	camera_x;
-	double  dir_x;
-	double  dir_y;
-	int	 map_x;
-	int	 map_y;
-	double  side_dist_x;
-	double  side_dist_y;
-	double  delta_dist_x;
-	double  delta_dist_y;
-	double  perp_wall_dist;
-	int	 step_x;
-	int	 step_y;
-	int	 hit;
-	int	 side;
-	int	 line_height;
-	int	 draw_start;
-	int	 draw_end;
-	double  wall_x;
-	int	 tex_x;
-}   t_ray;
+	double	dir_x;
+	double	dir_y;
+	int		map_x;
+	int		map_y;
+	double	side_dist_x;
+	double	side_dist_y;
+	double	delta_dist_x;
+	double	delta_dist_y;
+	double	perp_wall_dist;
+	int		step_x;
+	int		step_y;
+	int		hit;
+	int		side;
+	int		line_height;
+	int		draw_start;
+	int		draw_end;
+	double	wall_x;
+	int		tex_x;
+}	t_ray;
 
 /* Map structure */
 typedef struct s_map
 {
 	char	**grid;
-	int	 width;
-	int	 height;
-}   t_map;
+	int		width;
+	int		height;
+}	t_map;
 
 /* Parse state (temporary paths before MLX init) */
 typedef struct s_parse
 {
 	char	*tex_paths[4];
-	int	 floor_set;
-	int	 ceiling_set;
-	int	 player_count;
+	int		floor_set;
+	int		ceiling_set;
+	int		player_count;
 	char	player_dir;
-	int	 player_x;
-	int	 player_y;
-}   t_parse;
+	int		player_x;
+	int		player_y;
+}	t_parse;
 
 /* Main structure */
 typedef struct s_cub3d
 {
 	void		*mlx;
 	void		*win;
-	t_tex	   img;
-	t_tex	   tex[4];
-	int		 floor_color;
-	int		 ceiling_color;
-	t_map	   map;
+	t_tex		img;
+	t_tex		tex[4];
+	int			floor_color;
+	int			ceiling_color;
+	t_map		map;
 	t_player	player;
-	t_parse	 parse;
-	int		 keys[256];
-}   t_cub3d;
+	t_parse		parse;
+	int			keys[256];
+	int			key_left;
+	int			key_right;
+}	t_cub3d;
 
 /* ========================== FUNCTION PROTOTYPES ========================== */
 
@@ -180,6 +182,10 @@ void		init_cub(t_cub3d *cub);
 void		init_mlx(t_cub3d *cub);
 void		load_textures(t_cub3d *cub);
 
+/* --- Core: init_player.c --- */
+void		init_player(t_cub3d *cub);
+void		init_player_direction(t_cub3d *cub);
+
 /* --- Core: events.c --- */
 void		setup_hooks(t_cub3d *cub);
 int			close_window(t_cub3d *cub);
@@ -191,7 +197,12 @@ void		process_input(t_cub3d *cub);
 
 /* --- Parsing: parse_file.c --- */
 void		parse_file(t_cub3d *cub, char *filename);
+
+/* --- Parsing: parse_utils.c --- */
 int			check_extension(char *filename, char *ext);
+char		*trim_spaces(char *str);
+int			is_empty_line(char *line);
+void		remove_newline(char *line);
 
 /* --- Parsing: parse_texture.c --- */
 void		parse_texture(t_cub3d *cub, char *line, int tex_index);
@@ -199,11 +210,13 @@ void		parse_texture(t_cub3d *cub, char *line, int tex_index);
 /* --- Parsing: parse_colors.c --- */
 void		parse_floor_color(t_cub3d *cub, char *line);
 void		parse_ceiling_color(t_cub3d *cub, char *line);
+
+/* --- Parsing: parse_rgb.c --- */
 int			parse_rgb(t_cub3d *cub, char *str);
 
 /* --- Parsing: parse_map.c --- */
 void		add_map_line(t_cub3d *cub, char *line);
-int		 is_map_line(char *line);
+int			is_map_line(char *line);
 
 /* --- Parsing: validate.c --- */
 void		validate_map(t_cub3d *cub);

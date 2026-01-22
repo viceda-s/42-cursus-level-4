@@ -6,7 +6,7 @@ Welcome to my repository showcasing my progress in **Milestone 4** at 42 School.
 
 | Project                          | Final Score    | Notable Features                           |
 | :--                              | :--:           | :--                                         |
-| CPP Modules 00-04                | ✅ 100/100 | C++ Modules (Fundamentals, Classes, Inheritance, Polymorphism) |
+| CPP Modules 00-04                | ✅ 5/5 | C++ Modules (Fundamentals, Classes, Inheritance, Polymorphism) |
 | miniRT                           | 🌟 125/100 | Ray tracing, Vector manipulation, Realistic physical lighting |
 | NetPractice                      | ✅ 100/100 | Practical challenges with networks and sockets |
 

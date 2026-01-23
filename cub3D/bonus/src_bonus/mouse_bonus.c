@@ -6,7 +6,7 @@
 /*   By: viceda-s <viceda-s@student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 16:35:00 by viceda-s          #+#    #+#             */
-/*   Updated: 2025/12/02 16:33:13 by viceda-s         ###   ########.fr       */
+/*   Updated: 2025/12/16 07:22:03 by viceda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ int	mouse_move(int x, int y, t_cub3d *cub)
 	double	rotation;
 
 	(void)y;
-	if (!cub->mouse_enabled)
-		return (0);
 	delta_x = x - cub->last_mouse_x;
 	cub->last_mouse_x = x;
 	if (delta_x == 0)
@@ -51,15 +49,11 @@ int	mouse_move(int x, int y, t_cub3d *cub)
 	return (0);
 }
 
-void	toggle_mouse(t_cub3d *cub)
+int	mouse_press(int button, int x, int y, t_cub3d *cub)
 {
-	cub->mouse_enabled = !cub->mouse_enabled;
-	if (cub->mouse_enabled)
-	{
-		mlx_mouse_hide(cub->mlx, cub->win);
-		mlx_mouse_move(cub->mlx, cub->win, WIN_WIDTH / 2, WIN_HEIGHT / 2);
-		cub->last_mouse_x = WIN_WIDTH / 2;
-	}
-	else
-		mlx_mouse_show(cub->mlx, cub->win);
+	(void)x;
+	(void)y;
+	if (button == MOUSE_LEFT)
+		shoot_weapon(cub);
+	return (0);
 }

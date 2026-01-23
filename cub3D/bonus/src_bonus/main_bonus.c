@@ -6,7 +6,7 @@
 /*   By: viceda-s <viceda-s@student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 16:50:00 by viceda-s          #+#    #+#             */
-/*   Updated: 2025/12/02 16:33:13 by viceda-s         ###   ########.fr       */
+/*   Updated: 2026/01/23 12:35:04 by viceda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,11 @@ int	main(int argc, char **argv)
 	extract_player(&cub);
 	init_mlx(&cub);
 	load_textures(&cub);
+	load_target_textures(&cub);
+	load_weapon_sprite(&cub);
 	init_player(&cub);
 	init_doors(&cub);
+	init_targets(&cub);
 	setup_hooks(&cub);
 	mlx_loop(cub.mlx);
 	cleanup(&cub);

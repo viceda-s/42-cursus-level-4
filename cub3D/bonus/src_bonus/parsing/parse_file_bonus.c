@@ -6,7 +6,7 @@
 /*   By: viceda-s <viceda-s@student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 17:00:00 by viceda-s          #+#    #+#             */
-/*   Updated: 2025/12/02 16:33:13 by viceda-s         ###   ########.fr       */
+/*   Updated: 2025/12/16 20:15:02 by viceda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,16 @@
 
 static int	parse_bonus_element(t_cub3d *cub, char *trimmed)
 {
-	if (ft_strncmp(trimmed, "DO ", 3) == 0)
+	int	door_num;
+
+	if (trimmed[0] == 'D' && ft_isdigit(trimmed[1]) && trimmed[2] == ' ')
 	{
-		parse_texture(cub, trimmed + 3, TEX_DOOR);
-		return (1);
+		door_num = trimmed[1] - '0';
+		if (door_num >= 1 && door_num <= 9)
+		{
+			parse_texture(cub, trimmed + 3, TEX_DOOR_START + door_num - 1);
+			return (1);
+		}
 	}
 	return (0);
 }

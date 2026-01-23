@@ -6,7 +6,7 @@
 /*   By: viceda-s <viceda-s@student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 12:19:13 by viceda-s          #+#    #+#             */
-/*   Updated: 2025/07/18 18:37:53 by viceda-s         ###   ########.fr       */
+/*   Updated: 2025/07/07 08:19:59 by viceda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,13 @@ static char	*read_file(int fd, char *stash)
 	return (stash);
 }
 
-static char	*init_stash(char **stash, int fd)
+char	*get_next_line(int fd)
 {
+	static char	*stash[OPEN_MAX];
+	char		*line;
+
+	if (fd < 0 || BUFFER_SIZE <= 0 || fd > OPEN_MAX)
+		return (NULL);
 	if (!stash[fd])
 		stash[fd] = ft_calloc(1, sizeof(char));
 	if (!stash[fd])
@@ -98,30 +103,7 @@ static char	*init_stash(char **stash, int fd)
 	stash[fd] = read_file(fd, stash[fd]);
 	if (!stash[fd])
 		return (NULL);
-	return (stash[fd]);
-}
-
-char	*get_next_line(int fd)
-{
-	static char	*stash[OPEN_MAX];
-	char		*line;
-	int			i;
-
-	if (fd == -42)
-	{
-		i = -1;
-		while (++i < OPEN_MAX)
-			if (stash[i] && (free(stash[i]), 1))
-				stash[i] = NULL;
-		return (NULL);
-	}
-	if (fd < 0 || BUFFER_SIZE <= 0 || fd > OPEN_MAX)
-		return (NULL);
-	if (!init_stash(stash, fd))
-		return (NULL);
 	line = get_line(stash[fd]);
 	stash[fd] = update_stash(stash[fd]);
-	if (!line && stash[fd] && (free(stash[fd]), 1))
-		stash[fd] = NULL;
 	return (line);
 }

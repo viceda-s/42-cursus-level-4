@@ -1,20 +1,30 @@
-NO ./assets/textures/north.xpm
-SO ./assets/textures/south.xpm
-WE ./assets/textures/west.xpm
-EA ./assets/textures/east.xpm
-DO ./assets/textures/door.xpm
+NO ./assets/textures/brick.xpm
+SO ./assets/textures/brick.xpm
+WE ./assets/textures/brick.xpm
+EA ./assets/textures/brick.xpm
+
+D1 ./assets/textures/door_0.xpm
+D2 ./assets/textures/door_1.xpm
+D3 ./assets/textures/door_2.xpm
+D4 ./assets/textures/door_3.xpm
+D5 ./assets/textures/door_4.xpm
+D6 ./assets/textures/door_5.xpm
+D7 ./assets/textures/door_6.xpm
+D8 ./assets/textures/door_7.xpm
+D9 ./assets/textures/door_8.xpm
 
 F 100,80,60
 C 135,206,235
 
 1111111111111111111
 1000000000000000001
-1000000000000000001
+10000T0000000T00001
 1000000000000000001
 1000000010000000001
 10000000D0000000001
 1000000010000000001
-1000000000000000001
+10T0000000000000T01
 100N000000000000001
 1000000000000000001
 1111111111111111111
+

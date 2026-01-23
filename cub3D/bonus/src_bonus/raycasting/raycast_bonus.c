@@ -6,7 +6,7 @@
 /*   By: viceda-s <viceda-s@student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 17:10:00 by viceda-s          #+#    #+#             */
-/*   Updated: 2025/12/02 16:33:13 by viceda-s         ###   ########.fr       */
+/*   Updated: 2025/12/13 12:45:28 by viceda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	raycast(t_cub3d *cub)
 {
 	t_ray	ray;
 	int		x;
+	double	saved_perp_dist;
 
 	x = 0;
 	while (x < WIN_WIDTH)
@@ -42,8 +43,16 @@ void	raycast(t_cub3d *cub)
 		init_ray(cub, &ray, x);
 		calculate_step_and_side_dist(cub, &ray);
 		perform_dda(cub, &ray);
+		if (ray.hit_door && ray.has_wall_behind)
+		{
+			saved_perp_dist = ray.perp_wall_dist;
+			ray.perp_wall_dist = ray.door_perp_dist;
+		}
 		calculate_wall_height(&ray);
 		calculate_tex_x(cub, &ray);
+		if (ray.hit_door && ray.has_wall_behind)
+			ray.perp_wall_dist = saved_perp_dist;
+		cub->z_buffer[x] = ray.perp_wall_dist;
 		draw_column(cub, &ray, x);
 		x++;
 	}

@@ -6,7 +6,7 @@
 /*   By: viceda-s <viceda-s@student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 16:55:00 by viceda-s          #+#    #+#             */
-/*   Updated: 2025/12/02 16:33:13 by viceda-s         ###   ########.fr       */
+/*   Updated: 2026/01/23 13:04:46 by viceda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	init_parse(t_cub3d *cub)
 	int	i;
 
 	i = 0;
-	while (i < 5)
+	while (i < TEX_COUNT)
 	{
 		cub->tex[i].img = NULL;
 		cub->tex[i].addr = NULL;
@@ -47,8 +47,13 @@ static void	init_bonus_data(t_cub3d *cub)
 {
 	cub->doors = NULL;
 	cub->door_count = 0;
-	cub->mouse_enabled = 0;
+	cub->mouse_enabled = 1;
 	cub->last_mouse_x = WIN_WIDTH / 2;
+	cub->targets = NULL;
+	cub->target_count = 0;
+	cub->score = 0;
+	cub->sprites = NULL;
+	cub->sprite_count = 0;
 }
 
 void	init_cub(t_cub3d *cub)
@@ -65,6 +70,7 @@ void	init_cub(t_cub3d *cub)
 	init_parse(cub);
 	init_keys(cub);
 	init_bonus_data(cub);
+	init_weapon(cub);
 }
 
 void	init_mlx(t_cub3d *cub)
@@ -82,4 +88,6 @@ void	init_mlx(t_cub3d *cub)
 			&cub->img.line_len, &cub->img.endian);
 	if (!cub->img.addr)
 		err_exit(cub, ERR_MLX_IMG);
+	mlx_mouse_hide(cub->mlx, cub->win);
+	mlx_mouse_move(cub->mlx, cub->win, WIN_WIDTH / 2, WIN_HEIGHT / 2);
 }

@@ -6,7 +6,7 @@
 /*   By: viceda-s <viceda-s@student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 11:24:01 by viceda-s          #+#    #+#             */
-/*   Updated: 2025/08/30 15:04:24 by viceda-s         ###   ########.fr       */
+/*   Updated: 2025/06/13 15:54:28 by viceda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,6 @@ void	ft_lstclear(t_list **lst, void (*del)(void*))
 		ft_lstdelone(*lst, del);
 		*lst = tmp;
 	}
+	free(*lst);
 	*lst = NULL;
 }

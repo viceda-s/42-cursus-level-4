@@ -6,7 +6,7 @@
 /*   By: viceda-s <viceda-s@student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 16:55:00 by viceda-s          #+#    #+#             */
-/*   Updated: 2025/12/03 11:02:47 by viceda-s         ###   ########.fr       */
+/*   Updated: 2025/12/13 12:45:28 by viceda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,16 @@ static void	load_single_texture(t_cub3d *cub, int index, int required)
 
 void	load_textures(t_cub3d *cub)
 {
+	int	i;
+
 	load_single_texture(cub, TEX_NORTH, 1);
 	load_single_texture(cub, TEX_SOUTH, 1);
 	load_single_texture(cub, TEX_EAST, 1);
 	load_single_texture(cub, TEX_WEST, 1);
-	load_single_texture(cub, TEX_DOOR, 0);
+	i = 0;
+	while (i < DOOR_FRAMES)
+	{
+		load_single_texture(cub, TEX_DOOR_START + i, 0);
+		i++;
+	}
 }

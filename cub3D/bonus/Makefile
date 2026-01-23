@@ -55,7 +55,12 @@ SRCS		= src_bonus/main_bonus.c \
 			  src_bonus/minimap_bonus.c \
 			  src_bonus/mouse_bonus.c \
 			  src_bonus/doors_bonus.c \
-			  src_bonus/collision_bonus.c
+			  src_bonus/collision_bonus.c \
+			  src_bonus/weapon_bonus.c \
+			  src_bonus/enemy_bonus.c \
+			  src_bonus/enemy_ai_bonus.c \
+			  src_bonus/enemy_hit_bonus.c \
+			  src_bonus/sprite_render_bonus.c
 
 OBJS_DIR	= obj_bonus
 OBJS		= $(SRCS:src_bonus/%.c=$(OBJS_DIR)/%.o)

@@ -6,7 +6,7 @@
 /*   By: viceda-s <viceda-s@student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/01 18:10:01 by viceda-s          #+#    #+#             */
-/*   Updated: 2025/12/02 16:10:14 by viceda-s         ###   ########.fr       */
+/*   Updated: 2026/01/09 06:51:23 by viceda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 /* ========================== INCLUDES ========================== */
 
-# include "../lib/libft/include/libft.h"
-# include "../lib/minilibx-linux/mlx.h"
+# include "libft.h"
+# include "mlx.h"
 # include <fcntl.h>
 # include <math.h>
 # include <stdio.h>

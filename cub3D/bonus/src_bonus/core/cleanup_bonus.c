@@ -6,7 +6,7 @@
 /*   By: viceda-s <viceda-s@student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 16:55:00 by viceda-s          #+#    #+#             */
-/*   Updated: 2025/12/02 16:33:13 by viceda-s         ###   ########.fr       */
+/*   Updated: 2026/01/23 12:35:04 by viceda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	cleanup_textures(t_cub3d *cub)
 	int	i;
 
 	i = 0;
-	while (i < 5)
+	while (i < TEX_COUNT)
 	{
 		if (cub->tex[i].img && cub->mlx)
 			mlx_destroy_image(cub->mlx, cub->tex[i].img);
@@ -64,9 +64,9 @@ void	cleanup(t_cub3d *cub)
 {
 	if (!cub)
 		return ;
-	if (cub->doors)
-		free(cub->doors);
-	cub->doors = NULL;
+	cleanup_game_objects(cub);
+	cleanup_target_textures(cub);
+	cleanup_weapon(cub);
 	cleanup_textures(cub);
 	free_array(cub->map.grid);
 	cub->map.grid = NULL;

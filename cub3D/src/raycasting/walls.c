@@ -6,7 +6,7 @@
 /*   By: viceda-s <viceda-s@student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 12:30:00 by viceda-s          #+#    #+#             */
-/*   Updated: 2025/12/02 15:58:31 by viceda-s         ###   ########.fr       */
+/*   Updated: 2026/01/22 15:05:19 by viceda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	calculate_wall_height(t_ray *ray)
 		ray->perp_wall_dist = ray->side_dist_y - ray->delta_dist_y;
 	if (ray->perp_wall_dist < 0.0001)
 		ray->perp_wall_dist = 0.0001;
-	ray->line_height = (int)(WIN_HEIGHT / ray->perp_wall_dist);
+	ray->line_height = WIN_HEIGHT / ray->perp_wall_dist;
 	ray->draw_start = -ray->line_height / 2 + WIN_HEIGHT / 2;
 	if (ray->draw_start < 0)
 		ray->draw_start = 0;

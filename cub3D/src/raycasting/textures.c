@@ -6,7 +6,7 @@
 /*   By: viceda-s <viceda-s@student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 12:30:00 by viceda-s          #+#    #+#             */
-/*   Updated: 2025/12/02 15:58:31 by viceda-s         ###   ########.fr       */
+/*   Updated: 2026/01/22 15:05:19 by viceda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	calculate_tex_x(t_cub3d *cub, t_ray *ray)
 		ray->wall_x = cub->player.pos_x + ray->perp_wall_dist * ray->dir_x;
 	ray->wall_x -= floor(ray->wall_x);
 	tex = get_texture(cub, ray);
-	ray->tex_x = (int)(ray->wall_x * (double)tex->width);
+	ray->tex_x = ray->wall_x * tex->width;
 	if (ray->side == 0 && ray->dir_x > 0)
 		ray->tex_x = tex->width - ray->tex_x - 1;
 	if (ray->side == 1 && ray->dir_y < 0)

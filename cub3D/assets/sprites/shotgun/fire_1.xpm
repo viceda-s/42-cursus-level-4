@@ -2,11 +2,11 @@
 static char *fire_1[] = {
 /* columns rows colors chars-per-pixel */
 "400 256 255 2 ",
-"   c magenta",
-".  c #FE00FE",
-"X  c #FD00FD",
-"o  c #FC00FC",
-"O  c #FE01FC",
+"   c #FF00FF",
+".  c #FF00FF",
+"X  c #FF00FF",
+"o  c #FF00FF",
+"O  c #FF00FF",
 "+  c #FF01FC",
 "@  c #FE01FD",
 "#  c #FF01FE",

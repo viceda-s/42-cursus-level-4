@@ -6,11 +6,29 @@
 /*   By: viceda-s <viceda-s@student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/16 00:00:00 by viceda-s          #+#    #+#             */
-/*   Updated: 2026/01/23 12:37:35 by viceda-s         ###   ########.fr       */
+/*   Updated: 2026/01/23 14:53:30 by viceda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D_bonus.h"
+
+static int	is_transparent(int color)
+{
+	int	r;
+	int	g;
+	int	b;
+
+	r = (color >> 16) & 0xFF;
+	g = (color >> 8) & 0xFF;
+	b = color & 0xFF;
+	if (r >= 240 && b >= 240 && g <= 60)
+		return (1);
+	if ((color & 0x00FFFFFF) == 0)
+		return (1);
+	if ((color & 0x00FFFFFF) == 0xFF00FF)
+		return (1);
+	return (0);
+}
 
 static void	init_sprite_transform(t_cub3d *cub, t_sprite *sprite,
 								double *transform, double *sprite_rel)
@@ -64,7 +82,7 @@ static void	draw_sprite_col(t_cub3d *cub, t_tex *tex, int *p, int stripe)
 		if (tex_y >= 0 && tex_y < tex->height)
 		{
 			color = get_texture_color(tex, tex_x, tex_y);
-			if (color != TRANSPARENT_COLOR && (color & 0x00FFFFFF) != 0)
+			if (!is_transparent(color))
 				put_pixel(&cub->img, stripe, y, color);
 		}
 		y++;
@@ -91,6 +109,7 @@ void	draw_sprite(t_cub3d *cub, t_sprite *sprite, double *z_buffer)
 	int		props[9];
 	t_tex	*tex;
 
+	ft_memset(props, 0, sizeof(int) * 9);
 	init_sprite_transform(cub, sprite, transform, sprite_rel);
 	if (transform[1] <= 0)
 		return ;

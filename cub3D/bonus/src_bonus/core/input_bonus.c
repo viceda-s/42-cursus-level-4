@@ -6,11 +6,17 @@
 /*   By: viceda-s <viceda-s@student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 16:55:00 by viceda-s          #+#    #+#             */
-/*   Updated: 2026/01/23 11:12:27 by viceda-s         ###   ########.fr       */
+/*   Updated: 2026/01/23 14:28:58 by viceda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D_bonus.h"
+
+static int	is_moving(t_cub3d *cub)
+{
+	return (cub->keys[KEY_W] || cub->keys[KEY_S]
+		|| cub->keys[KEY_A] || cub->keys[KEY_D]);
+}
 
 static void	process_movement(t_cub3d *cub)
 {
@@ -34,6 +40,7 @@ static void	process_rotation(t_cub3d *cub)
 
 void	process_input(t_cub3d *cub)
 {
+	cub->weapon.is_walking = is_moving(cub);
 	process_movement(cub);
 	process_rotation(cub);
 }

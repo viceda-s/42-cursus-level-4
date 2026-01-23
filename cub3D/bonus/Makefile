@@ -31,10 +31,12 @@ NC			= \033[0m
 # Source files
 SRCS		= src_bonus/main_bonus.c \
 			  src_bonus/core/cleanup_bonus.c \
+			  src_bonus/core/cleanup_utils_bonus.c \
 			  src_bonus/core/error_bonus.c \
 			  src_bonus/core/events_bonus.c \
 			  src_bonus/core/init_bonus.c \
 			  src_bonus/core/init_player_bonus.c \
+			  src_bonus/core/input_bonus.c \
 			  src_bonus/core/keys_bonus.c \
 			  src_bonus/core/load_textures_bonus.c \
 			  src_bonus/parsing/parse_colors_bonus.c \
@@ -44,23 +46,31 @@ SRCS		= src_bonus/main_bonus.c \
 			  src_bonus/parsing/parse_texture_bonus.c \
 			  src_bonus/parsing/parse_utils_bonus.c \
 			  src_bonus/parsing/validate_bonus.c \
+			  src_bonus/parsing/validate_utils_bonus.c \
+			  src_bonus/player/collision_bonus.c \
+			  src_bonus/player/mouse_bonus.c \
 			  src_bonus/player/movement_bonus.c \
 			  src_bonus/player/rotation_bonus.c \
 			  src_bonus/raycasting/dda_bonus.c \
+			  src_bonus/raycasting/dda_utils_bonus.c \
 			  src_bonus/raycasting/raycast_bonus.c \
 			  src_bonus/raycasting/textures_bonus.c \
+			  src_bonus/raycasting/textures_utils_bonus.c \
 			  src_bonus/raycasting/walls_bonus.c \
 			  src_bonus/render/draw_bonus.c \
+			  src_bonus/render/draw_utils_bonus.c \
+			  src_bonus/render/minimap_bonus.c \
 			  src_bonus/render/render_bonus.c \
-			  src_bonus/minimap_bonus.c \
-			  src_bonus/mouse_bonus.c \
-			  src_bonus/doors_bonus.c \
-			  src_bonus/collision_bonus.c \
-			  src_bonus/weapon_bonus.c \
-			  src_bonus/enemy_bonus.c \
-			  src_bonus/enemy_ai_bonus.c \
-			  src_bonus/enemy_hit_bonus.c \
-			  src_bonus/sprite_render_bonus.c
+			  src_bonus/doors/doors_bonus.c \
+			  src_bonus/doors/doors_utils_bonus.c \
+			  src_bonus/sprites/sprite_render_bonus.c \
+			  src_bonus/sprites/sprite_utils_bonus.c \
+			  src_bonus/sprites/target_bonus.c \
+			  src_bonus/sprites/target_hit_bonus.c \
+			  src_bonus/sprites/target_textures_bonus.c \
+			  src_bonus/weapon/weapon_bonus.c \
+			  src_bonus/weapon/weapon_anim_bonus.c \
+			  src_bonus/weapon/weapon_draw_bonus.c
 
 OBJS_DIR	= obj_bonus
 OBJS		= $(SRCS:src_bonus/%.c=$(OBJS_DIR)/%.o)

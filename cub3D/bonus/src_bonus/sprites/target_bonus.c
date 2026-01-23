@@ -6,7 +6,7 @@
 /*   By: viceda-s <viceda-s@student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 12:00:00 by viceda-s          #+#    #+#             */
-/*   Updated: 2026/01/23 12:33:43 by viceda-s         ###   ########.fr       */
+/*   Updated: 2026/01/23 14:47:34 by viceda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void	init_targets(t_cub3d *cub)
 {
 	count_targets(cub);
 	cub->score = 0;
+	cub->sprite_count = cub->target_count;
 	if (cub->target_count == 0)
 	{
 		cub->targets = NULL;

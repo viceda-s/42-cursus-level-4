@@ -6,7 +6,7 @@
 /*   By: viceda-s <viceda-s@student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 16:55:00 by viceda-s          #+#    #+#             */
-/*   Updated: 2026/01/23 13:04:46 by viceda-s         ###   ########.fr       */
+/*   Updated: 2026/01/23 14:37:36 by viceda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ static void	init_keys(t_cub3d *cub)
 
 static void	init_bonus_data(t_cub3d *cub)
 {
+	int	i;
+
 	cub->doors = NULL;
 	cub->door_count = 0;
 	cub->mouse_enabled = 1;
@@ -54,6 +56,13 @@ static void	init_bonus_data(t_cub3d *cub)
 	cub->score = 0;
 	cub->sprites = NULL;
 	cub->sprite_count = 0;
+	i = 0;
+	while (i < 2)
+	{
+		cub->target_tex[i].img = NULL;
+		cub->target_tex[i].addr = NULL;
+		i++;
+	}
 }
 
 void	init_cub(t_cub3d *cub)

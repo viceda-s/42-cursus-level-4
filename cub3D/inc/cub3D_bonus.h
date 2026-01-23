@@ -6,7 +6,7 @@
 /*   By: viceda-s <viceda-s@student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/01 18:16:15 by viceda-s          #+#    #+#             */
-/*   Updated: 2026/01/23 13:15:02 by viceda-s         ###   ########.fr       */
+/*   Updated: 2026/01/23 14:35:53 by viceda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,11 +100,18 @@
 # define DOOR_FRAME_TIME	2
 
 /* Weapon animation */
-# define WEAPON_IDLE_FRAMES		3
+# define WEAPON_IDLE_FRAMES		1
+# define WEAPON_WALK_FRAMES		2
 # define WEAPON_FIRE_FRAMES		5
 # define WEAPON_TOTAL_FRAMES	8
-# define WEAPON_IDLE_TICK		6
+# define WEAPON_IDLE_TICK		8
+# define WEAPON_WALK_TICK		8
 # define WEAPON_FIRE_TICK		3
+
+/* Weapon bob (CS-style smooth walk) */
+# define BOB_SPEED				0.15
+# define BOB_AMOUNT_X			8.0
+# define BOB_AMOUNT_Y			6.0
 
 /* ========================== ENUMS ========================== */
 
@@ -160,8 +167,12 @@ typedef struct s_weapon
 {
 	t_tex	sprites[WEAPON_TOTAL_FRAMES];
 	int		is_shooting;
+	int		is_walking;
 	int		current_frame;
 	int		tick_count;
+	double	bob_time;
+	int		bob_x;
+	int		bob_y;
 }	t_weapon;
 
 /* Player structure */

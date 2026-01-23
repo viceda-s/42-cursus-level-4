@@ -6,7 +6,7 @@
 /*   By: viceda-s <viceda-s@student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 17:00:00 by viceda-s          #+#    #+#             */
-/*   Updated: 2025/12/16 16:25:22 by viceda-s         ###   ########.fr       */
+/*   Updated: 2026/01/23 13:49:05 by viceda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ int	is_map_line(char *line)
 	{
 		if (line[i] != '0' && line[i] != '1' && line[i] != ' '
 			&& line[i] != 'N' && line[i] != 'S'
-			&& line[i] != 'E' && line[i] != 'W' && line[i] != 'D')
+			&& line[i] != 'E' && line[i] != 'W' && line[i] != 'D'
+			&& line[i] != 'T')
 			return (0);
 		i++;
 	}

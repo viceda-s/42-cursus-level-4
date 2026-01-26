@@ -24,6 +24,7 @@ void	init_weapon(t_cub3d *cub)
 		i++;
 	}
 	cub->weapon.is_shooting = 0;
+	cub->weapon.is_reloading = 0;
 	cub->weapon.is_walking = 0;
 	cub->weapon.current_frame = 0;
 	cub->weapon.tick_count = 0;
@@ -38,12 +39,7 @@ static void	load_single_weapon(t_cub3d *cub, char *path, int i)
 			path, &cub->weapon.sprites[i].width,
 			&cub->weapon.sprites[i].height);
 	if (!cub->weapon.sprites[i].img)
-	{
-		ft_putstr_fd("Warning: Failed to load weapon: ", 2);
-		ft_putstr_fd(path, 2);
-		ft_putstr_fd("\n", 2);
 		return ;
-	}
 	cub->weapon.sprites[i].addr = mlx_get_data_addr(
 			cub->weapon.sprites[i].img, &cub->weapon.sprites[i].bpp,
 			&cub->weapon.sprites[i].line_len, &cub->weapon.sprites[i].endian);
@@ -51,22 +47,23 @@ static void	load_single_weapon(t_cub3d *cub, char *path, int i)
 
 void	load_weapon_sprite(t_cub3d *cub)
 {
-	load_single_weapon(cub, "./assets/sprites/shotgun/idle_1.xpm", 0);
-	load_single_weapon(cub, "./assets/sprites/shotgun/walk_1.xpm", 1);
-	load_single_weapon(cub, "./assets/sprites/shotgun/walk_2.xpm", 2);
-	load_single_weapon(cub, "./assets/sprites/shotgun/fire_1.xpm", 3);
-	load_single_weapon(cub, "./assets/sprites/shotgun/fire_2.xpm", 4);
-	load_single_weapon(cub, "./assets/sprites/shotgun/fire_3.xpm", 5);
-	load_single_weapon(cub, "./assets/sprites/shotgun/fire_4.xpm", 6);
-	load_single_weapon(cub, "./assets/sprites/shotgun/fire_5.xpm", 7);
+	load_single_weapon(cub, "./assets/sprites/shotgun/idle.xpm", 0);
+	load_single_weapon(cub, "./assets/sprites/shotgun/fire.xpm", 1);
+	load_single_weapon(cub, "./assets/sprites/shotgun/reload_1.xpm", 2);
+	load_single_weapon(cub, "./assets/sprites/shotgun/reload_2.xpm", 3);
+	load_single_weapon(cub, "./assets/sprites/shotgun/reload_3.xpm", 4);
+	load_single_weapon(cub, "./assets/sprites/shotgun/reload_4.xpm", 5);
+	load_single_weapon(cub, "./assets/sprites/shotgun/reload_5.xpm", 6);
+	load_single_weapon(cub, "./assets/sprites/shotgun/reload_6.xpm", 7);
+	load_single_weapon(cub, "./assets/sprites/shotgun/reload_7.xpm", 8);
 }
 
 void	shoot_weapon(t_cub3d *cub)
 {
-	if (cub->weapon.is_shooting)
+	if (cub->weapon.is_shooting || cub->weapon.is_reloading)
 		return ;
 	cub->weapon.is_shooting = 1;
-	cub->weapon.current_frame = WEAPON_IDLE_FRAMES + WEAPON_WALK_FRAMES;
+	cub->weapon.current_frame = WEAPON_IDLE_FRAMES;
 	cub->weapon.tick_count = 0;
 	check_target_hit(cub);
 }

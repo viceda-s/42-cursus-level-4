@@ -26,8 +26,8 @@
 /* ========================== MACROS ========================== */
 
 /* Window dimensions */
-# define WIN_WIDTH  1280
-# define WIN_HEIGHT 720
+# define WIN_WIDTH  1920
+# define WIN_HEIGHT 1080
 # define WIN_TITLE  "cub3D (Bonus edition)"
 
 /* Texture indices */
@@ -60,7 +60,7 @@
 # define MOUSE_RIGHT		3
 
 /* Player settings */
-# define MOVE_SPEED		0.05
+# define MOVE_SPEED		0.08
 # define ROT_SPEED		0.03
 # define MOUSE_SENS		0.002
 
@@ -76,15 +76,30 @@
 # define MINIMAP_SCALE	8
 # define MINIMAP_SIZE	150
 # define MINIMAP_X		20
-# define MINIMAP_Y		20
+# define MINIMAP_Y		10
 
-/* Minimap colors */
-# define MM_WALL		0x333333
-# define MM_FLOOR		0x666666
-# define MM_PLAYER		0x00FF00
-# define MM_DOOR		0xFFAA00
-# define MM_DOOR_OPEN	0x00FFFF
-# define MM_BG			0x000000
+/* Minimap colors - Doom style */
+# define MM_WALL		0x808080
+# define MM_FLOOR		0x000000
+# define MM_PLAYER		0xFFFFFF
+# define MM_DOOR		0xCC6600
+# define MM_DOOR_OPEN	0x00AA00
+# define MM_TARGET		0xFF0000
+# define MM_TARGET_HIT	0x555555
+# define MM_BG			0x1a0000
+# define MM_BORDER		0xAA0000
+
+/* Crosshair */
+# define CROSSHAIR_COLOR	0x00FF00
+# define CROSSHAIR_SIZE		10
+# define CROSSHAIR_GAP		3
+# define CROSSHAIR_THICK	2
+
+/* Crosshair */
+# define CROSSHAIR_COLOR	0x00FF00
+# define CROSSHAIR_SIZE		10
+# define CROSSHAIR_GAP		3
+# define CROSSHAIR_THICK	2
 
 /* Transparency */
 # define TRANSPARENT_COLOR	0xFF00FF
@@ -97,19 +112,19 @@
 
 /* Door animation */
 # define DOOR_FRAMES		9
-# define DOOR_FRAME_TIME	2
+# define DOOR_FRAME_TIME	1
 
 /* Weapon animation */
 # define WEAPON_IDLE_FRAMES		1
-# define WEAPON_WALK_FRAMES		2
-# define WEAPON_FIRE_FRAMES		5
-# define WEAPON_TOTAL_FRAMES	8
+# define WEAPON_SHOOT_FRAMES	1
+# define WEAPON_RELOAD_FRAMES	7
+# define WEAPON_TOTAL_FRAMES	9
 # define WEAPON_IDLE_TICK		8
-# define WEAPON_WALK_TICK		8
-# define WEAPON_FIRE_TICK		3
+# define WEAPON_SHOOT_TICK		2
+# define WEAPON_RELOAD_TICK		3
 
-/* Weapon bob (CS-style smooth walk) */
-# define BOB_SPEED				0.15
+/* Weapon bob  */
+# define BOB_SPEED				0.10
 # define BOB_AMOUNT_X			8.0
 # define BOB_AMOUNT_Y			6.0
 
@@ -152,6 +167,32 @@ typedef struct s_tex
 	int		endian;
 }	t_tex;
 
+/* Rectangle structure for UI elements */
+typedef struct s_rect
+{
+	int	x;
+	int	y;
+	int	width;
+	int	height;
+}	t_rect;
+
+/* Line structure for drawing operations */
+typedef struct s_line
+{
+	int	start_x;
+	int	start_y;
+	int	end_x;
+	int	end_y;
+}	t_line;
+
+/* Line data for drawing calculations */
+typedef struct s_line_data
+{
+	int	dx;
+	int	dy;
+	int	t;
+}	t_line_data;
+
 /* Door structure */
 typedef struct s_door
 {
@@ -167,6 +208,7 @@ typedef struct s_weapon
 {
 	t_tex	sprites[WEAPON_TOTAL_FRAMES];
 	int		is_shooting;
+	int		is_reloading;
 	int		is_walking;
 	int		current_frame;
 	int		tick_count;
@@ -394,9 +436,19 @@ void		calc_wall_params(t_ray *ray, double perp_dist, int *params);
 double		calc_wall_x(t_cub3d *cub, t_ray *ray, double perp_dist);
 int			calc_tex_x(t_cub3d *cub, t_ray *ray, t_tex *tex, double wall_x);
 void		draw_tex_column(t_cub3d *cub, t_tex *tex, int *p, int x);
-
+int			is_transparent(int color);
 /* --- Bonus: minimap_bonus.c --- */
 void		draw_minimap(t_cub3d *cub);
+
+/* --- Bonus: minimap_draw_bonus.c --- */
+void		draw_player_marker(t_cub3d *cub);
+void		draw_minimap_border(t_cub3d *cub);
+
+/* --- Bonus: minimap_targets_bonus.c --- */
+void		draw_minimap_targets(t_cub3d *cub);
+
+/* --- Bonus: crosshair_bonus.c --- */
+void		draw_crosshair(t_cub3d *cub);
 
 /* --- Bonus: mouse_bonus.c --- */
 int			mouse_move(int x, int y, t_cub3d *cub);
@@ -433,6 +485,14 @@ void		draw_sprite(t_cub3d *cub, t_sprite *sprite, double *z_buffer);
 
 /* --- Bonus: target_hit_bonus.c --- */
 void		check_target_hit(t_cub3d *cub);
+
+/* --- Bonus: target_score_bonus.c --- */
 void		draw_score(t_cub3d *cub);
+
+/* --- Bonus: target_cleared_bonus.c --- */
+int			all_targets_cleared(t_cub3d *cub);
+
+/* --- Bonus: target_mission_bonus.c --- */
+void		draw_mission_complete(t_cub3d *cub);
 
 #endif

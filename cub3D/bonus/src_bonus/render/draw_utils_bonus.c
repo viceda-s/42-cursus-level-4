@@ -12,6 +12,20 @@
 
 #include "cub3D_bonus.h"
 
+int	is_transparent(int color)
+{
+	int	r;
+	int	g;
+	int	b;
+
+	r = (color >> 16) & 0xFF;
+	g = (color >> 8) & 0xFF;
+	b = color & 0xFF;
+	if (r >= 150 && g <= 150 && b >= 150)
+		return (1);
+	return (0);
+}
+
 void	calc_wall_params(t_ray *ray, double perp_dist, int *params)
 {
 	params[0] = (int)(WIN_HEIGHT / perp_dist);

@@ -57,25 +57,26 @@ SRCS		= src_bonus/main_bonus.c \
 			  src_bonus/raycasting/textures_bonus.c \
 			  src_bonus/raycasting/textures_utils_bonus.c \
 			  src_bonus/raycasting/walls_bonus.c \
+			  src_bonus/render/crosshair_bonus.c \
 			  src_bonus/render/draw_bonus.c \
 			  src_bonus/render/draw_utils_bonus.c \
 			  src_bonus/render/minimap_bonus.c \
+			  src_bonus/render/minimap_draw_bonus.c \
+			  src_bonus/render/minimap_targets_bonus.c \
 			  src_bonus/render/render_bonus.c \
 			  src_bonus/doors/doors_bonus.c \
 			  src_bonus/doors/doors_utils_bonus.c \
 			  src_bonus/sprites/sprite_render_bonus.c \
 			  src_bonus/sprites/sprite_utils_bonus.c \
 			  src_bonus/sprites/target_bonus.c \
+			  src_bonus/sprites/target_cleared_bonus.c \
 			  src_bonus/sprites/target_hit_bonus.c \
+			  src_bonus/sprites/target_mission_bonus.c \
+			  src_bonus/sprites/target_score_bonus.c \
 			  src_bonus/sprites/target_textures_bonus.c \
 			  src_bonus/weapon/weapon_bonus.c \
 			  src_bonus/weapon/weapon_anim_bonus.c \
 			  src_bonus/weapon/weapon_draw_bonus.c
-
-OBJS_DIR	= obj_bonus
-OBJS		= $(SRCS:src_bonus/%.c=$(OBJS_DIR)/%.o)
-
-# ================================== RULES ================================== #
 
 all: $(LIBFT) $(NAME)
 	@echo "$(GREEN)cub3D_bonus compiled successfully!$(NC)"

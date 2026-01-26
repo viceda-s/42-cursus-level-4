@@ -78,34 +78,11 @@ static void	draw_minimap_tiles(t_cub3d *cub)
 	}
 }
 
-static void	draw_player_marker(t_cub3d *cub)
-{
-	int		cx;
-	int		cy;
-	int		i;
-	int		dx;
-	int		dy;
-
-	cx = MINIMAP_X + MINIMAP_SIZE / 2;
-	cy = MINIMAP_Y + MINIMAP_SIZE / 2;
-	put_pixel(&cub->img, cx, cy, MM_PLAYER);
-	put_pixel(&cub->img, cx + 1, cy, MM_PLAYER);
-	put_pixel(&cub->img, cx - 1, cy, MM_PLAYER);
-	put_pixel(&cub->img, cx, cy + 1, MM_PLAYER);
-	put_pixel(&cub->img, cx, cy - 1, MM_PLAYER);
-	i = 0;
-	while (i < 8)
-	{
-		dx = (int)(cub->player.dir_x * i);
-		dy = (int)(cub->player.dir_y * i);
-		put_pixel(&cub->img, cx + dx, cy + dy, MM_PLAYER);
-		i++;
-	}
-}
-
 void	draw_minimap(t_cub3d *cub)
 {
 	draw_minimap_background(cub);
 	draw_minimap_tiles(cub);
+	draw_minimap_targets(cub);
 	draw_player_marker(cub);
+	draw_minimap_border(cub);
 }

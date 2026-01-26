@@ -6,29 +6,11 @@
 /*   By: viceda-s <viceda-s@student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/16 00:00:00 by viceda-s          #+#    #+#             */
-/*   Updated: 2026/01/23 14:53:30 by viceda-s         ###   ########.fr       */
+/*   Updated: 2026/01/23 16:43:49 by viceda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D_bonus.h"
-
-static int	is_transparent(int color)
-{
-	int	r;
-	int	g;
-	int	b;
-
-	r = (color >> 16) & 0xFF;
-	g = (color >> 8) & 0xFF;
-	b = color & 0xFF;
-	if (r >= 240 && b >= 240 && g <= 60)
-		return (1);
-	if ((color & 0x00FFFFFF) == 0)
-		return (1);
-	if ((color & 0x00FFFFFF) == 0xFF00FF)
-		return (1);
-	return (0);
-}
 
 static void	init_sprite_transform(t_cub3d *cub, t_sprite *sprite,
 								double *transform, double *sprite_rel)

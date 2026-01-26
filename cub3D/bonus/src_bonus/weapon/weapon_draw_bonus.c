@@ -12,24 +12,6 @@
 
 #include "cub3D_bonus.h"
 
-static int	is_transparent(int color)
-{
-	int	r;
-	int	g;
-	int	b;
-
-	r = (color >> 16) & 0xFF;
-	g = (color >> 8) & 0xFF;
-	b = color & 0xFF;
-	if (r >= 240 && b >= 240 && g <= 30)
-		return (1);
-	if ((color & 0x00FFFFFF) == 0)
-		return (1);
-	if ((color & 0x00FFFFFF) == 0xFF00FF)
-		return (1);
-	return (0);
-}
-
 static void	draw_weapon_row(t_cub3d *cub, t_tex *tex, int *pos, int y)
 {
 	int	x;

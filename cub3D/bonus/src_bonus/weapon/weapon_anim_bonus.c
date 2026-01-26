@@ -13,35 +13,30 @@
 #include "cub3D_bonus.h"
 #include <math.h>
 
-static void	update_fire_anim(t_cub3d *cub)
+static void	update_shoot_anim(t_cub3d *cub)
 {
 	cub->weapon.tick_count++;
-	if (cub->weapon.tick_count >= WEAPON_FIRE_TICK)
+	if (cub->weapon.tick_count >= WEAPON_SHOOT_TICK)
+	{
+		cub->weapon.tick_count = 0;
+		cub->weapon.is_shooting = 0;
+		cub->weapon.is_reloading = 1;
+		cub->weapon.current_frame = WEAPON_IDLE_FRAMES + WEAPON_SHOOT_FRAMES;
+	}
+}
+
+static void	update_reload_anim(t_cub3d *cub)
+{
+	cub->weapon.tick_count++;
+	if (cub->weapon.tick_count >= WEAPON_RELOAD_TICK)
 	{
 		cub->weapon.tick_count = 0;
 		cub->weapon.current_frame++;
 		if (cub->weapon.current_frame >= WEAPON_TOTAL_FRAMES)
 		{
-			cub->weapon.is_shooting = 0;
+			cub->weapon.is_reloading = 0;
 			cub->weapon.current_frame = 0;
 		}
-	}
-}
-
-static void	update_walk_anim(t_cub3d *cub)
-{
-	int	walk_start;
-	int	walk_end;
-
-	walk_start = WEAPON_IDLE_FRAMES;
-	walk_end = WEAPON_IDLE_FRAMES + WEAPON_WALK_FRAMES;
-	cub->weapon.tick_count++;
-	if (cub->weapon.tick_count >= WEAPON_WALK_TICK)
-	{
-		cub->weapon.tick_count = 0;
-		cub->weapon.current_frame++;
-		if (cub->weapon.current_frame >= walk_end)
-			cub->weapon.current_frame = walk_start;
 	}
 }
 
@@ -49,7 +44,8 @@ static void	update_weapon_bob(t_cub3d *cub)
 {
 	double	bob_sin;
 
-	if (cub->weapon.is_walking && !cub->weapon.is_shooting)
+	if (cub->weapon.is_walking && !cub->weapon.is_shooting
+		&& !cub->weapon.is_reloading)
 	{
 		cub->weapon.bob_time += BOB_SPEED;
 		cub->weapon.bob_x = (int)(sin(cub->weapon.bob_time) * BOB_AMOUNT_X);
@@ -68,8 +64,11 @@ void	update_weapon(t_cub3d *cub)
 {
 	update_weapon_bob(cub);
 	if (cub->weapon.is_shooting)
-		return (update_fire_anim(cub));
+		return (update_shoot_anim(cub));
+	if (cub->weapon.is_reloading)
+		return (update_reload_anim(cub));
 	if (cub->weapon.is_walking)
-		return (update_walk_anim(cub));
-	cub->weapon.current_frame = 0;
+		cub->weapon.current_frame = 0;
+	else
+		cub->weapon.current_frame = 0;
 }

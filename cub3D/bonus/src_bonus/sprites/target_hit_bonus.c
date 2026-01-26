@@ -69,20 +69,3 @@ void	check_target_hit(t_cub3d *cub)
 		i++;
 	}
 }
-
-void	draw_score(t_cub3d *cub)
-{
-	char	*score_str;
-	char	*num_str;
-
-	num_str = ft_itoa(cub->score);
-	if (!num_str)
-		return ;
-	score_str = ft_strjoin("Score: ", num_str);
-	free(num_str);
-	if (!score_str)
-		return ;
-	mlx_string_put(cub->mlx, cub->win, WIN_WIDTH - 150, 30,
-		0xFFFFFF, score_str);
-	free(score_str);
-}

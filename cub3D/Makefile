@@ -87,17 +87,23 @@ $(BONUS_SRC_DIR)/raycasting/raycast_bonus.c \
 $(BONUS_SRC_DIR)/raycasting/textures_bonus.c \
 $(BONUS_SRC_DIR)/raycasting/textures_utils_bonus.c \
 $(BONUS_SRC_DIR)/raycasting/walls_bonus.c \
+$(BONUS_SRC_DIR)/render/crosshair_bonus.c \
 $(BONUS_SRC_DIR)/render/draw_bonus.c \
 $(BONUS_SRC_DIR)/render/draw_utils_bonus.c \
 $(BONUS_SRC_DIR)/render/minimap_bonus.c \
+$(BONUS_SRC_DIR)/render/minimap_draw_bonus.c \
+$(BONUS_SRC_DIR)/render/minimap_targets_bonus.c \
 $(BONUS_SRC_DIR)/render/render_bonus.c \
 $(BONUS_SRC_DIR)/doors/doors_bonus.c \
 $(BONUS_SRC_DIR)/doors/doors_utils_bonus.c \
 $(BONUS_SRC_DIR)/sprites/sprite_render_bonus.c \
 $(BONUS_SRC_DIR)/sprites/sprite_utils_bonus.c \
 $(BONUS_SRC_DIR)/sprites/target_bonus.c \
-$(BONUS_SRC_DIR)/sprites/target_textures_bonus.c \
+$(BONUS_SRC_DIR)/sprites/target_cleared_bonus.c \
 $(BONUS_SRC_DIR)/sprites/target_hit_bonus.c \
+$(BONUS_SRC_DIR)/sprites/target_mission_bonus.c \
+$(BONUS_SRC_DIR)/sprites/target_score_bonus.c \
+$(BONUS_SRC_DIR)/sprites/target_textures_bonus.c \
 $(BONUS_SRC_DIR)/weapon/weapon_bonus.c \
 $(BONUS_SRC_DIR)/weapon/weapon_draw_bonus.c \
 $(BONUS_SRC_DIR)/weapon/weapon_anim_bonus.c

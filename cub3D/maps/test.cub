@@ -2,6 +2,7 @@ NO ./assets/textures/brick.xpm
 SO ./assets/textures/stone.xpm
 WE ./assets/textures/tile.xpm
 EA ./assets/textures/wood.xpm
+
 D1 ./assets/textures/door_0.xpm
 D2 ./assets/textures/door_1.xpm
 D3 ./assets/textures/door_2.xpm

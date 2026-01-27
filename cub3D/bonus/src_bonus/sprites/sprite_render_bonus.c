@@ -73,12 +73,15 @@ static void	draw_sprite_col(t_cub3d *cub, t_tex *tex, int *p, int stripe)
 
 static void	draw_sprite_stripes(t_cub3d *cub, t_tex *tex, int *p, double *buf)
 {
-	int	stripe;
+	int		stripe;
+	double	transform_y;
 
+	transform_y = *((double *)&p[8]);
 	stripe = p[6];
 	while (stripe < p[7])
 	{
-		if (p[8] > 0 && stripe > 0 && stripe < WIN_WIDTH && p[8] < buf[stripe])
+		if (transform_y > 0 && stripe > 0 && stripe < WIN_WIDTH
+			&& transform_y < buf[stripe])
 			draw_sprite_col(cub, tex, p, stripe);
 		stripe++;
 	}
@@ -88,10 +91,9 @@ void	draw_sprite(t_cub3d *cub, t_sprite *sprite, double *z_buffer)
 {
 	double	transform[2];
 	double	sprite_rel[2];
-	int		props[9];
+	int		props[11];
 	t_tex	*tex;
 
-	ft_memset(props, 0, sizeof(int) * 9);
 	init_sprite_transform(cub, sprite, transform, sprite_rel);
 	if (transform[1] <= 0)
 		return ;
@@ -102,6 +104,6 @@ void	draw_sprite(t_cub3d *cub, t_sprite *sprite, double *z_buffer)
 	tex = &cub->target_tex[sprite->tex];
 	if (!tex->img)
 		return ;
-	props[8] = (int)(transform[1] * 1000) / 1000;
+	*((double *)&props[8]) = transform[1];
 	draw_sprite_stripes(cub, tex, props, z_buffer);
 }

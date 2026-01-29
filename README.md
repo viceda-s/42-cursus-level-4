@@ -7,6 +7,7 @@ Welcome to my repository showcasing my progress in **Milestone 4** at 42 School.
 | Project                          | Final Score    | Notable Features                           |
 | :--                              | :--:           | :--                                         |
 | CPP Modules 00-04                | ✅ 5/5 | C++ Modules (Fundamentals, Classes, Inheritance, Polymorphism) |
+| cub3D                            | 🌟 125/100 | Raycasting engine, First-person 3D navigation, Animated doors, Sprites, Minimap |
 | miniRT                           | 🌟 125/100 | Ray tracing, Vector manipulation, Realistic physical lighting |
 | NetPractice                      | ✅ 100/100 | Practical challenges with networks and sockets |
 
@@ -41,7 +42,21 @@ Welcome to my repository showcasing my progress in **Milestone 4** at 42 School.
 
 ---
 
-### 🖼️ miniRT (with rbaldin) – 125/100 🌟
+### 🎮 cub3D (w/ avigna) – 125/100 🌟
+
+- **Objective:** Create a realistic 3D graphical representation of the inside of a maze from a first-person perspective using raycasting principles inspired by Wolfenstein 3D.
+- **Challenges Faced:**
+    - Implementing the raycasting algorithm to calculate wall distances and render textured walls in real-time.
+    - Managing player movement with collision detection to ensure smooth navigation through the maze.
+    - Parsing and validating complex `.cub` map files with textures, colors, and map layouts.
+    - Optimizing rendering performance for smooth frame rates at 1920x1080 resolution (bonus).
+    - Implementing advanced bonus features like animated doors, interactive sprites, minimap, and mouse controls.
+- **Skills Developed:**
+    - Raycasting algorithms, texture mapping and sprite rendering techniques, collision detection and player physics.
+
+---
+
+### 🖼️ miniRT (w/ rbaldin) – 125/100 🌟
 
 - **Objective:** Develop a simple 3D rendering engine using ray tracing to generate realistic scenes with support for lights, shadows, and basic reflections.
 - **Challenges Faced:**
@@ -81,6 +96,7 @@ Each project is in its own directory, containing the full source code, as well a
 │ ├── CPP02/
 │ ├── CPP03/
 │ └── CPP04/
+├── cub3D/
 ├── miniRT/
 └── netpractice/
 ```
